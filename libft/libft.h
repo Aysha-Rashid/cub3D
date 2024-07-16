@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:12:36 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/16 14:52:03 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:38:29 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+int		count_substrings(char const *s, char c);
 int		ft_lstsize(t_list	*lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);

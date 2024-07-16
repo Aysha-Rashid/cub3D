@@ -6,13 +6,13 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 15:44:15 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/01/02 20:15:10 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:38:16 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	count_substrings(char const *s, char c)
+int	count_substrings(char const *s, char c)
 {
 	int	count;
 	int	len;

@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/16 22:17:11 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/16 22:37:21 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,40 @@
 #include "cub3D.h"
 #include "minilibx/mlx.h"
 
-void	read_map(int file, t_data *data)
+void	read_map(int file, t_coor *coor)
 {
 	char	*line;
+	int		length_of_line;
 
-	data->coord->width = 0;
-	data->coord->height = 0;
+	coor->width = 0;
+	coor->height = 0;
 	line = get_next_line(file);
+	if (ft_strchr(line, ' '))
+		length_of_line = count_substrings(line, ' ');
+	else
+		length_of_line = ft_strlen(line);
+	if (!line)
+		exit_error(EMPTY_FILE);
 	while (line)
 	{
 		free(line);
 		line = get_next_line(file);
-		data->coord->height++;
+		coor->height = coor->height + 1;
+		printf("height : %d\n", coor->height);
 	}
 	free(line);
+	int i = 0;
+	// while (coor->height > 0)
+	// {
+	// 	i = 0;
+		while (i < length_of_line)
+		{
+			coor->width = coor->width + 1;
+			i++;
+			printf("height : %d\n", coor->width);
+		}
+	// 	coor->height = coor->height - 1;
+	// }
 }
 
 void	init(t_data *data, char *file_name)
@@ -49,7 +69,7 @@ void	init(t_data *data, char *file_name)
 	data->file = open(file_name, O_RDONLY);
 	if (data->file == -1)
 		exit_error(WRONG_FILE);
-	// read_map(data->file, data);
+	read_map(data->file, &data->coord);
 }
 
 int	main(int argc, char **argv)
