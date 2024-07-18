@@ -6,104 +6,97 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:00:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/16 21:46:08 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:25:34 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #define BUFFER_SIZE 42
 
-char	*read_lines(int fd, char *store)
+
+char	*read_line(int fd, char *str)
 {
 	char	*buffer;
-	int		bytes;
+	int		bytes_read;
 
-	bytes = 1;
-	buffer = malloc(BUFFER_SIZE + 2);
-	if (store == NULL)
-		store = ft_strdup("");
-	while (bytes > 0)
+	bytes_read = 1;
+	buffer = malloc(sizeof(char *) * BUFFER_SIZE + 2);
+	if (str == NULL)
+		str = ft_strdup("");
+	while (bytes_read > 0)
 	{
-		bytes = read(fd, buffer, BUFFER_SIZE);
-		if (bytes == -1)
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read < 0)
 		{
-			free(store);
+			free(str);
 			free(buffer);
 			return (NULL);
 		}
-		buffer[bytes] = '\0';
-		store = ft_strjoin(store, buffer);
-		if (ft_strchr(store, '\n') != NULL)
+		buffer[bytes_read] = '\0';
+		str = ft_strjoin(str, buffer);
+		if (ft_strchr(str, '\n'))
 			break ;
 	}
-	return (free(buffer), store);
+	free(buffer);
+	return (str);
 }
 
-char	*new_line(char *buffer)
+char	*skip_line(char *input_string)
 {
-	char		*line;
-	int			i;
-	int			j;
+	int		i;
+	char	*remaining_string;
 
 	i = 0;
+	while (input_string[i] != '\0' && input_string[i] != '\n')
+		i++;
+	if (input_string[i] == '\0')
+	{
+		free(input_string);
+		return (NULL);
+	}
+	remaining_string = ft_strdup(input_string + i + 1);
+	free(input_string);
+	return (remaining_string);
+}
+
+char	*extract_line(char *buffer)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	line = NULL;
 	if (buffer == NULL || buffer[i] == '\0')
 		return (NULL);
-	while (buffer[i] && buffer[i] != '\n')
+	while (buffer[i] != '\n' && buffer[i] != '\0')
 		i++;
-	line = (char *) malloc(i + 2);
-	j = 0;
-	while (buffer[j] && buffer[j] != '\n')
-	{
-		line[j] = buffer[j];
-		j++;
-	}
-	if (buffer[j] == '\n')
-	{
-		line[j] = buffer[j];
-		j++;
-	}
-	line[j] = '\0';
-	return (line);
-}
-
-char	*remaining(char *buffer)
-{
-	char		*line;
-	int			i;
-	int			j;
-
+	line = (char *)malloc(sizeof(char) * (i + 2));
 	i = 0;
-	j = 0;
-	line = NULL;
-	while (buffer[i] != '\0' && buffer[i] != '\n')
-		i++;
-	if (buffer[i] == '\0')
+	while (buffer[i] != '\n' && buffer[i] != '\0')
 	{
-		free(buffer);
-		return (NULL);
+		line[i] = buffer[i];
+		i++;
 	}
-	line = malloc(ft_strlen(buffer) - i);
-	if (!line)
-		return (NULL);
-	i++;
-	while (buffer[i] != '\0')
-		line[j++] = buffer[i++];
-	line[j] = '\0';
-	free(buffer);
+	if (buffer[i] == '\n')
+	{
+		line[i] = '\0';
+		i++;
+	}
+	line[i] = '\0';
 	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
 	char		*line;
+	static char	*buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 2147483647)
 		return (NULL);
-	buffer = read_lines(fd, buffer);
+	buffer = read_line(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	line = new_line(buffer);
-	buffer = remaining(buffer);
+	line = extract_line(buffer);
+	buffer = skip_line(buffer);
 	return (line);
 }

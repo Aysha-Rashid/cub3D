@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/16 22:28:19 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:19:17 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,28 @@
 #define WRONG_EXTEN "Should be cub extension"
 #define WRONG_FILE "File doesnt exist"
 #define EMPTY_FILE "Nothing to read from the file"
+#define INVALID_MAP "Something wrong with the map"
+#define TEXTURE_ERROR "Something wrong with the texture"
 
+// typedef struct s_image
+// {
+// }				t_image;
 typedef struct s_image
 {
-	int		bpp;
-	int		size_line;
-	int		endian;
-	void	*img;
+	char	*texture[4];
+	char	*text_file_name[4];
+	int		fixed_height;
+	int		fixed_width;
 }				t_image;
 
 typedef struct s_mlx
 {
 	void	*win;
 	void	*ptr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	void	*img;
 }				t_mlx;
 
 typedef struct s_coor
@@ -39,11 +48,13 @@ typedef struct s_coor
 	int	y;
 	int	width;
 	int	height;
+	t_image image;
 }				t_coor;
 
 typedef struct s_data
 {
 	t_coor	coord;
+	// t_image image;
 	int		file;
 	// t_mlx	*mlx;
 }				t_data;

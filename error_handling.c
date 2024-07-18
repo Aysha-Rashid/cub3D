@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/16 22:09:06 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:55:47 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 void	exit_error(char *error)
 {
+	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error, 2);
-	exit(0);
+	exit(1);
 }
 
 int	check_name(char *argv)
 {
 	char	*store;
 
+	store = "";
 	if (ft_strchr(argv, '.'))
 		store = ft_strchr(argv, '.') + 1;
-	else
-		store = "wrong";
 	if (!ft_strcmp(store, "cub"))
 		return (0);
 	return (1);
