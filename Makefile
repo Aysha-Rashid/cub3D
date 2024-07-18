@@ -2,6 +2,8 @@ NAME = cub3D
 M_SRC = main.c \
 		get_next_line.c \
 		error_handling.c \
+		parsing.c \
+		utils.c \
 
 M_OBJ = $(M_SRC:.c=.o)
 

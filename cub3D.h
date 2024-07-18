@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/18 18:19:17 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/18 22:33:28 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #define INVALID "Invalid number of arguments"
 #define WRONG_EXTEN "Should be cub extension"
 #define WRONG_FILE "File doesnt exist"
+#define WRONG_TEXTFILE "Texture file doesnt exist"
 #define EMPTY_FILE "Nothing to read from the file"
 #define INVALID_MAP "Something wrong with the map"
 #define TEXTURE_ERROR "Something wrong with the texture"
@@ -44,22 +45,24 @@ typedef struct s_mlx
 
 typedef struct s_coor
 {
-	int	x;
-	int	y;
-	int	width;
-	int	height;
-	t_image image;
+	int		x;
+	int		y;
+	int		width;
+	int		height;
+	t_image	image;
 }				t_coor;
 
 typedef struct s_data
 {
 	t_coor	coord;
-	// t_image image;
 	int		file;
-	// t_mlx	*mlx;
 }				t_data;
 
 int		esc_key(int key, t_mlx *matrix);
 int		check_name(char *argv);
 void	exit_error(char *error);
+void	read_map(int file, t_coor *coord);
 char	*get_next_line(int fd);
+
+//utils
+int		skip_space_and_count(char *line);
