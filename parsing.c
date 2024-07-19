@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/18 22:33:45 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:26:14 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	texture_parsing(t_image *image, int *i, char *line, int *flag)
 {
-	int	fd;
+	int		fd;
+	char	*store;
 
+	store = "";
 	fd = 0;
+	image->fixed_height = 500;
+	image->fixed_width = 1000;
 	if (!(ft_strchr(line, ' ')))
 		exit_error(WRONG_TEXTFILE);
 	image->texture[*i] = ft_strdup(ft_strchr(line, ' ') + 1);
@@ -24,6 +28,10 @@ void	texture_parsing(t_image *image, int *i, char *line, int *flag)
 	fd = open(image->texture[*i], O_RDONLY);
 	if (fd == -1)
 		exit_error(WRONG_TEXTFILE);
+	if (ft_strchr(image->texture[*i], '.'))
+		store = ft_strchr(image->texture[*i], '.') + 1;
+	if (ft_strcmp(store, "xpm"))
+		exit_error(WRONG_TEX_EXTEN);
 	close(fd);
 }
 
@@ -34,7 +42,7 @@ int	store_texture_and_parse(int fd, char *line, t_image *image)
 
 	flag = 0;
 	i = 0;
-	while (i < 4)
+	while (i < 4) // just for format testing (should change this based on what we decide on parsing)
 	{
 		flag = 0;
 		if (!ft_strncmp(line, "SO", 2))
@@ -45,16 +53,15 @@ int	store_texture_and_parse(int fd, char *line, t_image *image)
 			texture_parsing(image, &i, line, &flag);
 		if (!ft_strncmp(line, "EA", 2))
 			texture_parsing(image, &i, line, &flag);
-		image->fixed_height = 500;
-		image->fixed_width = 1000;
-		(i++, free(line));
+		i++;
+		free(line);
 		line = get_next_line(fd);
 		if (!line)
 			break ;
 		if (flag == 0)
 			exit_error(TEXTURE_ERROR);
 	}
-	return (free(line), flag);
+	return (flag);
 }
 
 void	read_map(int file, t_coor *coord)
@@ -67,7 +74,8 @@ void	read_map(int file, t_coor *coord)
 		exit_error(EMPTY_FILE);
 	length_of_line = 0;
 	if (!store_texture_and_parse(file, line, &coord->image))
-		exit_error(TEXTURE_ERROR);
+		(exit_error(TEXTURE_ERROR), free(line));
+	free(line);
 	line = get_next_line(file);
 	while (line)
 	{
@@ -81,7 +89,7 @@ void	read_map(int file, t_coor *coord)
 				exit_error(INVALID_MAP);
 		}
 		length_of_line = coord->width;
-		coord->height = coord->height + 1;
+		coord->height++;
 		free(line);
 		line = get_next_line(file);
 	}

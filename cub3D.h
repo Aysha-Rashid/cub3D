@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/18 22:33:28 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:52:38 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdio.h>
 #define INVALID "Invalid number of arguments"
 #define WRONG_EXTEN "Should be cub extension"
+#define WRONG_TEX_EXTEN "Should be xpm extension"
 #define WRONG_FILE "File doesnt exist"
 #define WRONG_TEXTFILE "Texture file doesnt exist"
 #define EMPTY_FILE "Nothing to read from the file"
