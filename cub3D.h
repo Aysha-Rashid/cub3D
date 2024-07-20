@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/19 12:52:38 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:20:39 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@
 // }				t_image;
 typedef struct s_image
 {
-	char	*texture[4];
-	char	*text_file_name[4];
+	char	*texture[5];
+	char	*south;
+	char	*west;
+	char	*east;
+	char	*north;
+	char	*text_file_name[5];
 	int		fixed_height;
 	int		fixed_width;
 }				t_image;
