@@ -4,11 +4,12 @@ M_SRC = main.c \
 		error_handling.c \
 		parsing.c \
 		utils.c \
+		colors.c \
 
 M_OBJ = $(M_SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -O3
+CFLAGS = -Wall -Wextra -Werror -g -O3 -fsanitize=address
 
 LIBFTPATH = libft
 LIBFT = -L${LIBFTPATH} -lft
@@ -19,6 +20,7 @@ $(NAME): $(M_OBJ)
 	@ cd $(LIBFTPATH) && make
 	@ cd $(MINILIBX_PATH) && make
 	$(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) $(MINILIBX_LIB) -o $(NAME)
+# $(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@ echo "$(COLOUR_GREEN)compiled $(words $(M_OBJ)) files $(COLOUR_END)"
 
 all: $(NAME)

@@ -29,11 +29,11 @@ SRC = ft_atoi.c\
 	  ft_putnbr_fd.c\
 	  ft_itoa.c\
 	  ft_putendl_fd.c\
-	  ft_strjoin.c\
 	  ft_strtrim.c\
 	  ft_split.c\
 	  ft_strmapi.c\
 	  ft_striteri.c\
+	#   ft_strjoin.c\
 
 BONUS = ft_lstnew.c\
 		ft_lstadd_front.c\

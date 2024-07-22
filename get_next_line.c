@@ -6,13 +6,12 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:00:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/18 14:25:34 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:19:08 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #define BUFFER_SIZE 42
-
 
 char	*read_line(int fd, char *str)
 {
@@ -100,3 +99,16 @@ char	*get_next_line(int fd)
 	buffer = skip_line(buffer);
 	return (line);
 }
+
+// int main()
+// {
+// 	int fd = open("get_next_line.c", O_RDONLY);
+//   	char *line = get_next_line(fd);
+//   	while (line)
+//   	{
+//   		printf("%s",line);
+//   		free(line);
+//  		line = get_next_line(fd);
+//  	}
+// 	free(line);
+// }

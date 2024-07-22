@@ -6,15 +6,17 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/19 14:04:54 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:33:23 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 #include "minilibx/mlx.h"
 
-void	exit_error(char *error)
+void	exit_error(char *error, t_data *data)
 {
+	// free_data(data)
+	(void)data;
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error, 2);
 	exit(1);

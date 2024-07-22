@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/19 14:05:07 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:39:59 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,48 @@
 // 
 
 #include "cub3D.h"
-#include "minilibx/mlx.h"
-#include <string.h>
 
 void	init_data(t_data *data, char *file_name)
 {
 	data->file = open(file_name, O_RDONLY);
 	if (data->file == -1)
-		exit_error(WRONG_FILE);
+		(ft_putendl_fd("Error", 2), ft_putendl_fd(WRONG_FILE, 2), exit(1));
 	data->coord.width = 0;
 	data->coord.height = 0;
 	data->coord.x = 0;
 	data->coord.y = 0;
-	read_map(data->file, &data->coord);
+	data->image.texture[SO].img = NULL;
+	data->image.texture[WE].img = NULL;
+	data->image.texture[EA].img = NULL;
+	data->image.texture[NO].img = NULL;
+	data->image.ceiling = -1;
+	data->image.floor = -1;
+	read_map(data->file, data);
 	close(data->file);
+}
+
+void check_texture(t_data *data)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while (i < 4)
+    {
+		printf("Texture %d: %p\n", i, data->image.texture[i].img);
+        j = i + 1;
+        while (j < 4)
+        {
+            if (data->image.texture[i].img == data->image.texture[j].img)
+            {
+                printf("same: i = %i, j = %i\n", i, j);
+                exit(1); // Exit with an error if two textures are the same
+            }
+            j++;
+        }
+        i++;
+    }
+    printf("All textures are different\n");
 }
 
 void	init_mlx(t_mlx mlx)
@@ -53,22 +81,21 @@ void	init_mlx(t_mlx mlx)
 
 int	main(int argc, char **argv)
 {
-	t_mlx	mlx;
 	t_data	data;
 
 	if (argc != 2)
-		exit_error(INVALID);
+		return (ft_putendl_fd(INVALID, 2), 1);
 	if (argc > 1)
 	{
 		if (check_name(argv[1]))
-			exit_error(WRONG_EXTEN);
-		init_data(&data, argv[1]);
+			exit_error(WRONG_EXTEN, &data);
 
-		mlx.ptr = mlx_init();
-		mlx.win = mlx_new_window(mlx.ptr, 1000, 1000, "cub3d");
-		init_mlx(mlx);
-		mlx_key_hook(mlx.win, esc_key, &mlx);
-		mlx_loop(mlx.ptr);
+		data.mlx.ptr = mlx_init();
+		data.mlx.win = mlx_new_window(data.mlx.ptr, 1000, 1000, "cub3d");
+		init_data(&data, argv[1]);
+		init_mlx(data.mlx);
+		mlx_key_hook(data.mlx.win, esc_key, &data.mlx);
+		mlx_loop(data.mlx.ptr);
 	}
 }
 
