@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:40:50 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/22 22:41:46 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/24 13:34:35 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ static int	convert_rgb(long long int *rgb)
 	{
 		if (rgb[i] > 255 || rgb[i] < 0)
 		{
-			printf("r, g, b values outside of 0-255 range");
+			printf("r, g, b values outside 0-255 range\n");
 			exit(1);
 		}
 		i++;
 	}
-	color = rgb[0] * (pow(256, 2)) + (rgb[1] * 256) + rgb[2];
+	color = rgb[0] * (pow(256, 2)) + (rgb[1] * 256) + rgb[2]; // combined decimal values of rgb
+	printf("colors : %d\n", color);
 	return (color);
 }
 

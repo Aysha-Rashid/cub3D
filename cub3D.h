@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/22 22:42:20 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/24 21:07:07 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #define TEXTURE_ERROR "Something wrong with the texture"
 #define DUP "Duplicate found"
 #define SYNTAX_ISSUE "Something wrong with values of ceiling or floor"
+#define MEMORY_ISSUE "allocation failed"
 
 #define SO 0
 #define WE 1
@@ -52,18 +53,11 @@ typedef struct s_mlx
 
 typedef struct s_image
 {
-	t_mlx	texture[6];
 	int		floor;
 	int		ceiling;
-	// char	*south;
-	// char	*west;
-	// char	*east;
-	// char	*north;
-	// int		ceiling;
-	// int		floor;
-	// char	*text_file_name[5];
-	t_mlx   img;
+	t_mlx	texture[6];
 }				t_image;
+
 typedef struct s_coor
 {
 	int		x;
@@ -77,6 +71,7 @@ typedef struct s_data
 	t_image	image;
 	t_coor	coord;
 	t_mlx	mlx;
+	char	**map;
 	int		file;
 }				t_data;
 
@@ -92,3 +87,7 @@ int		skip_space_and_count(char *line);
 void	check_texture(t_data *data);
 int		check_for_syntax(char *str);
 int		set_color(char *str);
+char	*extract_line(char *buffer);
+void	free_map(char **map);
+char	**get_map(t_data *data, int fd);
+char	**parse_map(t_data *data, char **map);

@@ -3,7 +3,7 @@
 
 
 C 097,67,245
-F 245,        245,    245
+F 245,        254,    245
 
 
             NO              /Users/ayal-ras/Desktop/Student/cub3D/textures/a_bit_darker_greyish.xpm.xpm
@@ -15,7 +15,7 @@ EA /Users/ayal-ras/Desktop/Student/cub3D/textures/exit1.xpm
 
 
 11111111111
-100001000S1
+10000100011 
 1110010   0001
-10000000001
+1000000N01
 11111111111

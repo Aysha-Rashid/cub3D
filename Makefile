@@ -5,11 +5,12 @@ M_SRC = main.c \
 		parsing.c \
 		utils.c \
 		colors.c \
+		map_info.c \
 
 M_OBJ = $(M_SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -O3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -O3 -fsanitize=address #remove the sanitize flag
 
 LIBFTPATH = libft
 LIBFT = -L${LIBFTPATH} -lft

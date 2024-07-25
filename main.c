@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/22 22:39:59 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:22:57 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_data(t_data *data, char *file_name)
 	data->image.texture[NO].img = NULL;
 	data->image.ceiling = -1;
 	data->image.floor = -1;
+	data->map = NULL;
 	read_map(data->file, data);
 	close(data->file);
 }
