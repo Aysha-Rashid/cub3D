@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 13:00:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/21 20:19:08 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:29:01 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,3 @@ char	*get_next_line(int fd)
 	buffer = skip_line(buffer);
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd = open("get_next_line.c", O_RDONLY);
-//   	char *line = get_next_line(fd);
-//   	while (line)
-//   	{
-//   		printf("%s",line);
-//   		free(line);
-//  		line = get_next_line(fd);
-//  	}
-// 	free(line);
-// }

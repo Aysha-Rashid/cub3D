@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/24 21:07:07 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:38:53 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,15 @@ typedef struct s_data
 	t_coor	coord;
 	t_mlx	mlx;
 	char	**map;
+	char	*paths[4];
+	int		path_index;
 	int		file;
 }				t_data;
 
 int		esc_key(int key, t_mlx *matrix);
 int		check_name(char *argv);
 void	exit_error(char *error, t_data *data);
-void    read_map(int file, t_data *data);
+void	read_map(int file, t_data *data);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 void	ft_strcpy(char *dest, char *str);
@@ -86,8 +88,9 @@ void	ft_strcpy(char *dest, char *str);
 int		skip_space_and_count(char *line);
 void	check_texture(t_data *data);
 int		check_for_syntax(char *str);
-int		set_color(char *str);
+int		set_color(char *str, t_data *data);
 char	*extract_line(char *buffer);
-void	free_map(char **map);
+// void	free_map(char **map);
 char	**get_map(t_data *data, int fd);
 char	**parse_map(t_data *data, char **map);
+void	free_texture(t_data *data, int num);

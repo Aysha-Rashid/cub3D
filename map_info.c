@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:56:44 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/25 22:30:34 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/26 17:04:22 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,8 @@ char	**get_map(t_data *data, int fd)
 	{
 		map[y] = (char *)malloc(sizeof(char) * (ft_strlen(line) + 1));
 		if (!map[y])
-			(free(line), free_map(map), exit_error(INVALID_MAP, data));
+			(free(line), exit_error(INVALID_MAP, data));
+			// (free(line), free_map(map), exit_error(INVALID_MAP, data));
 		ft_strlcpy(map[y++], line, ft_strlen(line) + 1);
 		(free(line), line = get_next_line(fd));
 	}

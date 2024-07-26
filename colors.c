@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:40:50 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/24 13:34:35 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:49:22 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_for_syntax(char *str)
 	return (0);
 }
 
-static int	convert_rgb(long long int *rgb)
+static int	convert_rgb(long long int *rgb, t_data *data, char *str)
 {
 	int	color;
 	int	i;
@@ -49,16 +49,18 @@ static int	convert_rgb(long long int *rgb)
 		if (rgb[i] > 255 || rgb[i] < 0)
 		{
 			printf("r, g, b values outside 0-255 range\n");
+			free(str);
+			free_texture(data, data->path_index);
+			close(data->file);
 			exit(1);
 		}
 		i++;
 	}
 	color = rgb[0] * (pow(256, 2)) + (rgb[1] * 256) + rgb[2]; // combined decimal values of rgb
-	printf("colors : %d\n", color);
 	return (color);
 }
 
-int	set_color(char *str)
+int	set_color(char *str, t_data *data)
 {
 	int				i;
 	int				j;
@@ -83,6 +85,6 @@ int	set_color(char *str)
 		else
 			i++;
 	}
-	color = convert_rgb(rgb);
+	color = convert_rgb(rgb, data, str);
 	return (color);
 }

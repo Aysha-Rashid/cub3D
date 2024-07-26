@@ -3,31 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/24 16:24:38 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/26 19:47:39 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include "minilibx/mlx.h"
 
-void	free_map(char **map)
-{
-	int	i;
+// void	free_map(char **map)
+// {
+// 	int	i;
 
-	i = 0;
-	while (map[i])
-		free(map[i++]);
-	free(map);
-}
+// 	i = 0;
+// 	while (map[i])
+// 		free(map[i++]);
+// 	free(map);
+// }
 
 void	exit_error(char *error, t_data *data)
 {
+	// int	i;
+
+	// i = 0;
 	(void)data;
-	// if (data->map[0][0] != '\0'|| data->map)
-	// 	free_map(data->map);
+	// while (data->map && data->map[0])
+	// 	free(data->map[i++]);
+	// free(data->map);
+	// i = 0;
+	// while (data->paths[i])
+	// {
+	// 	printf("i : %d\n", i);
+	// 	free(data->paths[i++]);
+	// }
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error, 2);
 	exit(1);
@@ -45,12 +54,12 @@ int	check_name(char *argv)
 	return (1);
 }
 
-int	esc_key(int key, t_mlx *matrix)
-{
-	if (key == 53)
-	{
-		mlx_destroy_window(matrix->ptr, matrix->win);
-		exit(EXIT_SUCCESS);
-	}
-	return (0);
-}
+// int	esc_key(int key, t_mlx *matrix)
+// {
+// 	if (key == 53)
+// 	{
+// 		mlx_destroy_window(matrix->ptr, matrix->win);
+// 		exit(EXIT_SUCCESS);
+// 	}
+// 	return (0);
+// }

@@ -1,10 +1,16 @@
-C 1, 1, 1
-F 1, 1, 1
+
+
+
+
+C 097,67,245
+F 245,        254,    245
+
 
             NO              textures/a_bit_darker_greyish.xpm.xpm
-SO              textures/exit0.xpm
+SO              textures/exit1.xpm
 WE textures/exit1.xpm
-EA textures/exit2.xpm
+EA textures/exit1.xpm
+
 
 
 
