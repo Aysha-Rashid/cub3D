@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/26 19:47:39 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/27 15:30:18 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	check_name(char *argv)
 	return (1);
 }
 
-// int	esc_key(int key, t_mlx *matrix)
-// {
-// 	if (key == 53)
-// 	{
-// 		mlx_destroy_window(matrix->ptr, matrix->win);
-// 		exit(EXIT_SUCCESS);
-// 	}
-// 	return (0);
-// }
+int	esc_key(int key, t_mlx *matrix)
+{
+	if (key == 53)
+	{
+		mlx_destroy_window(matrix->ptr, matrix->win);
+		exit(EXIT_SUCCESS);
+	}
+	return (0);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/26 21:02:11 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/27 15:39:05 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 void	texture_parsing(t_data *data, t_mlx	*texture, char *line, int *flag)
 {
-	(void)texture;
 	char		*store;
-	// static int	i = 0;
 
-	// if (texture->img)
-	// 	(free_texture(data, data->path_index - 1), exit_error(DUP, data));
+	if (texture->img)
+	{
+		*flag = *flag - 1;
+		return ;
+	}
 	store = ft_strtrim(ft_strchr(line, ' ') + 1, " \n\t\v");
-	// free(line);
 	data->paths[data->path_index++] = ft_strdup(store);
-	// texture->img = mlx_xpm_file_to_image(data->mlx.ptr, store,
-	// 		&(data->mlx.fixed_width), &(data->mlx.fixed_height));
+	texture->img = mlx_xpm_file_to_image(data->mlx.ptr, store,
+			&(data->mlx.fixed_width), &(data->mlx.fixed_height));
 	free(store);
-	// if (!texture->img)
-	// 	(free_texture(data, data->path_index - 1), exit_error(WRONG_TEXTFILE, data));
+	if (!texture->img)
+	{
+		*flag = *flag - 1;
+		return ;
+	}
+	texture->img_pixels_ptr = (int *)mlx_get_data_addr(texture->img,
+			&(texture->bpp), &(texture->size_line),
+			&(texture->endian));
 	*flag = *flag + 1;
-	// texture->img_pixels_ptr = (int *)mlx_get_data_addr(texture->img,
-	// 		&(texture->bpp), &(texture->size_line),
-	// 		&(texture->endian));
 }
 
 int	ceiling_floor(t_data *data, int *str, char *line, int *flag)
@@ -40,15 +43,21 @@ int	ceiling_floor(t_data *data, int *str, char *line, int *flag)
 
 	if (!ft_strncmp(line, "C ", 2) || !ft_strncmp(line, "F ", 2))
 	{
-		*flag = *flag + 1;
+		// if (*str != -1)
+		// 	(free(line), close(data->file), free_texture(data, data->path_index - 1), exit_error(DUP, data));
 		if (*str != -1)
-			(free(line), close(data->file), free_texture(data, data->path_index - 1), exit_error(DUP, data));
+		{
+			*flag = *flag - 1;
+			return (0);
+		}
 		store = ft_strtrim(ft_strchr(line, ' ') + 1, " \n\t\v");
 		// free(line);
 		if (check_for_syntax(store))
 		{
-			free(line);
+			// free(line);
 			free(store);
+			*flag = *flag - 1;
+			// return (1);
 			close(data->file);
 			free_texture(data, data->path_index - 1);
 			exit_error(SYNTAX_ISSUE, data);
@@ -60,11 +69,14 @@ int	ceiling_floor(t_data *data, int *str, char *line, int *flag)
 			{
 				free(line);
 				free(store);
+				*flag = *flag - 1;
+				// return (1);
 				close(data->file);
 				free_texture(data, data->path_index - 1);
 				exit_error("Same color for Ceiling and Floor", data);
 			}
 		}
+		*flag = *flag + 1;
 		free(store);
 		return (0);
 	}
@@ -72,11 +84,11 @@ int	ceiling_floor(t_data *data, int *str, char *line, int *flag)
 	return (0);
 }
 
-void	handle_map_content(t_data *data, int fd)
-{
-	data->map = get_map(data, fd);
-	parse_map(data, data->map);
-}
+// void	handle_map_content(t_data *data, int fd)
+// {
+// 	data->map = get_map(data, fd);
+// 	parse_map(data, data->map);
+// }
 
 void	check_for_map_info(char *str, t_data *data, int *count)
 {
@@ -102,22 +114,21 @@ void	read_map(int file, t_data *data)
 
 	count = 0;
 	line = get_next_line(file);
-	if (!line)
-		(free(line), close(file), ft_putendl_fd("Error", 2), ft_putendl_fd(EMPTY_FILE, 2), exit(1));
+	// if (!line)
+	// 	(free(line), close(file), ft_putendl_fd("Error", 2), ft_putendl_fd(EMPTY_FILE, 2), exit(1));
 	while (line && count != 6)
 	{
 		str = ft_strtrim(line, " \t\n\v");
 		free(line);
 		check_for_map_info(str, data, &count);
 		free(str);
-		line = get_next_line(file);
-		if (!line)
-			break ;
+		if (count != 6)
+			line = get_next_line(file);
 	}
-	free(line);
+	// free(line);
 	if (count != 6)
-		(free_texture(data, data->path_index - 1), exit_error(TEXTURE_ERROR, data));
+		(free_texture(data, data->path_index - 1), close(data->file), exit_error(TEXTURE_ERROR, data));
 	check_texture(data);
-	// handle_map_content(data, file);
+	handle_map_content(data, file);
 	close(file);
 }
