@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/27 15:34:53 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:47:09 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@
 // 
 
 #include "cub3D.h"
+
+void	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		free(map[i++]);
+	free(map);
+}
 
 void	init_data(t_data *data, char *file_name)
 {
@@ -102,13 +112,14 @@ int	main(int argc, char **argv)
 		if (check_name(argv[1]))
 			exit_error(WRONG_EXTEN, &data);
 
-		data.mlx.ptr = mlx_init();
-		data.mlx.win = mlx_new_window(data.mlx.ptr, 1000, 1000, "cub3d");
+		// data.mlx.ptr = mlx_init();
+		// data.mlx.win = mlx_new_window(data.mlx.ptr, 1000, 1000, "cub3d");
 		init_data(&data, argv[1]);
 		free_texture(&data, 3);
+		free_map(data.map);
 		// init_mlx(data.mlx);
-		mlx_key_hook(data.mlx.win, esc_key, &data.mlx);
-		mlx_loop(data.mlx.ptr);
+		// mlx_key_hook(data.mlx.win, esc_key, &data.mlx);
+		// mlx_loop(data.mlx.ptr);
 	}
 }
 

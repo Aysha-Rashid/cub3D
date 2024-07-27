@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:19:32 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/22 15:56:35 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:42:41 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,28 @@ int	skip_space_and_count(char *line)
 			i++;
 	}
 	return (count);
+}
+
+char	*extract_line(char *buffer)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	line = NULL;
+	if (buffer == NULL || buffer[i] == '\0')
+		return (NULL);
+	while (buffer[i] != '\n' && buffer[i] != '\0')
+		i++;
+	line = (char *)malloc(sizeof(char) * (i + 2));
+	i = 0;
+	while (buffer[i] != '\n' && buffer[i] != '\0')
+	{
+		line[i] = buffer[i];
+		i++;
+	}
+	if (buffer[i] == '\n')
+		line[i++] = '\0';
+	line[i] = '\0';
+	return (line);
 }

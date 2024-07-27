@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/26 20:38:53 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/27 21:50:47 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #define DUP "Duplicate found"
 #define SYNTAX_ISSUE "Something wrong with values of ceiling or floor"
 #define MEMORY_ISSUE "allocation failed"
+#define COLOR_ISSUE "Same color for Ceiling and Floor"
 
 #define SO 0
 #define WE 1
@@ -94,3 +95,4 @@ char	*extract_line(char *buffer);
 char	**get_map(t_data *data, int fd);
 char	**parse_map(t_data *data, char **map);
 void	free_texture(t_data *data, int num);
+void	free_map(char **map);
