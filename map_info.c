@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:56:44 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/27 22:03:07 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:43:59 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,3 +182,51 @@ char	**get_map(t_data *data, int fd)
 	(free(line), map[y] = NULL);
 	return (map);
 }
+void	put_player_dir(t_data *data, int x, int y)
+{
+	if (data->map[y][x] == 'N')
+	{
+		data->view = (t_pix){0, -1};
+		data->camera = (t_pix){0.66, 0};
+	}
+	else if (data->map[y][x] == 'S')
+	{
+		data->view = (t_pix){0, 1};
+		data->camera = (t_pix){-0.66, 0};
+	}
+	else if (data->map[y][x] == 'E')
+	{
+		data->view = (t_pix){1, 0};
+		data->camera = (t_pix){0, 0.66};
+	}
+	else if (data->map[y][x] == 'W')
+	{
+		data->view = (t_pix){-1, 0};
+		data->camera = (t_pix){0, -0.66};
+	}
+}
+
+void	put_player(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == 'N' || data->map[y][x] == 'S'
+				|| data->map[y][x] == 'E' || data->map[y][x] == 'W')
+			{
+				put_player_dir(data, x, y);
+				data->player_x = x + 0.5;
+				data->player_y = y + 0.5;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+

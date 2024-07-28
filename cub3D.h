@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/27 21:50:47 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:34:12 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,18 @@ typedef struct s_image
 	t_mlx	texture[6];
 }				t_image;
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}				t_pos;
+
+typedef struct s_pix
+{
+	double	x;
+	double	y;
+}				t_pix;
+
 typedef struct s_coor
 {
 	int		x;
@@ -76,6 +88,10 @@ typedef struct s_data
 	char	*paths[4];
 	int		path_index;
 	int		file;
+	double	player_x;
+	double	player_y;
+	t_pix	view;
+	t_pix	camera;
 }				t_data;
 
 int		esc_key(int key, t_mlx *matrix);
@@ -91,8 +107,17 @@ void	check_texture(t_data *data);
 int		check_for_syntax(char *str);
 int		set_color(char *str, t_data *data);
 char	*extract_line(char *buffer);
-// void	free_map(char **map);
+void	free_map(char **map);
 char	**get_map(t_data *data, int fd);
 char	**parse_map(t_data *data, char **map);
 void	free_texture(t_data *data, int num);
 void	free_map(char **map);
+void	put_player(t_data *data);
+void	print_map(char **map);
+char	**put_test_map(char **map);
+void	dfs(t_data *data, char **test_map, int x, int y);
+int		search_corners(t_data *data, t_pos pos, t_pos *four_dir);
+int		search_dir(t_data *data, t_pos pos, t_pos *four_dir);
+void	checking_after_dfs(t_data *data, char **test_map);
+void	check_boundary(t_data *data, char **test_map, int x, int y);
+void	checking_after_dfs(t_data *data, char **test_map);

@@ -6,6 +6,7 @@ M_SRC = main.c \
 		utils.c \
 		colors.c \
 		map_info.c \
+		extra.c \
 
 M_OBJ = $(M_SRC:.c=.o)
 

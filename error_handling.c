@@ -3,24 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/27 21:47:01 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:31:33 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// void	free_map(char **map)
-// {
-// 	int	i;
+void	free_map(char **map)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (map[i])
-// 		free(map[i++]);
-// 	free(map);
-// }
+	i = 0;
+	if (map == NULL)
+		return ;
+	if (map[0] == NULL)
+		return ;
+	while (map[i])
+		free(map[i++]);
+	free(map);
+}
 
 void	exit_error(char *error, t_data *data)
 {
@@ -37,6 +41,7 @@ void	exit_error(char *error, t_data *data)
 	// 	printf("i : %d\n", i);
 	// 	free(data->paths[i++]);
 	// }
+	free_map(data->map);
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error, 2);
 	exit(1);

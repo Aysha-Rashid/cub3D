@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/27 22:00:06 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/07/28 20:34:33 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,19 @@ int	ceiling_floor(t_data *data, int *str, char *line, int *flag)
 
 void	handle_map_content(t_data *data, int fd)
 {
+	char	**test_map;
+
 	data->map = get_map(data, fd);
 	data->map = parse_map(data, data->map);
+	close(data->file);
+	if (data->coord.height < 3 || data->coord.width < 3)
+		(free_map(data->map), exit_error("Map is too small!", data));
+	put_player(data);
+	// print_map(data->map);
+	test_map = put_test_map(data->map);
+	// print_map(test_map);
+	dfs(data, test_map, (int) data->player_x, (int) data->player_y);
+	checking_after_dfs(data, test_map);
 }
 
 void	check_for_map_info(char *str, t_data *data, int *count)
