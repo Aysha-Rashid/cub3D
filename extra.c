@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:45:32 by rosman            #+#    #+#             */
-/*   Updated: 2024/07/28 20:38:20 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/29 18:24:28 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,20 @@
 void	print_map(char **map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
-		printf("%s\n", map[i++]);
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			printf("%c", map[i][j]);
+			j++;
+		}
+		printf("\n");  // Newline after each row
+		i++;
+	}
 }
 
 char	**put_test_map(char **map)
@@ -141,7 +151,7 @@ void	check_boundary(t_data *data, char **test_map, int x, int y)
 	if (pos.x == 0 || pos.x == data->coord.width - 1
 		|| pos.y == 0 || pos.y == data->coord.height - 1)
 	{
-		// destroy_2d_arr(marked_map);
+		free_map(test_map);
 		exit_error("Map not surrouned by walls", data);
 	}
 	i = 0;
@@ -152,7 +162,7 @@ void	check_boundary(t_data *data, char **test_map, int x, int y)
 		y = four_dir[i].y;
 		if (data->map[y][x] == 'X')
 		{
-			// destroy_2d_arr(marked_map);
+			free_map(test_map);
 			exit_error("Map not surrouned by walls", data);
 		}
 		i++;
@@ -175,7 +185,7 @@ void	checking_after_dfs(t_data *data, char **test_map)
 			else if (test_map[i][j] == 'A'
 				&& !(data->map[i][j] == '1' || data->map[i][j] == 'X'))
 			{
-				// destroy_2d_arr(test_map);
+				free_map(test_map);
 				exit_error("Only spaces beyond map walls and "
 					"no spaces/zeroes allowed within perimeter wall", data);
 			}

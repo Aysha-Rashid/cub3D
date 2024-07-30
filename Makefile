@@ -7,6 +7,9 @@ M_SRC = main.c \
 		colors.c \
 		map_info.c \
 		extra.c \
+		get_map.c \
+		viewing.c \
+		
 
 M_OBJ = $(M_SRC:.c=.o)
 
@@ -20,17 +23,17 @@ MINILIBX_LIB = -Lminilibx -lmlx -framework OpenGL -framework AppKit
 
 $(NAME): $(M_OBJ)
 	@ cd $(LIBFTPATH) && make
-# @cd $(MINILIBX_PATH) && make
+	@cd $(MINILIBX_PATH) && make
 # silent mlx and flags
-# @ $(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) $(MINILIBX_LIB) -o $(NAME)
-	@$(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
+	@ $(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) $(MINILIBX_LIB) -o $(NAME)
+# @$(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@ echo "$(COLOUR_GREEN)compiled $(words $(M_OBJ)) files $(COLOUR_END)"
 
 all: $(NAME)
 
 clean:
 	@ cd libft && make clean
-# @ cd $(MINILIBX_PATH) && make clean
+	@ cd $(MINILIBX_PATH) && make clean
 	@ rm -f $(M_OBJ)
 # @ rm -f $(M_OBJ)
 

@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/28 20:31:33 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/29 17:17:48 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	exit_error(char *error, t_data *data)
 	// int	i;
 
 	// i = 0;
-	(void)data;
+	// (void)data;
 	// while (data->map && data->map[0])
 	// 	free(data->map[i++]);
 	// free(data->map);
@@ -59,12 +59,12 @@ int	check_name(char *argv)
 	return (1);
 }
 
-// int	esc_key(int key, t_mlx *matrix)
-// {
-// 	if (key == 53)
-// 	{
-// 		mlx_destroy_window(matrix->ptr, matrix->win);
-// 		exit(EXIT_SUCCESS);
-// 	}
-// 	return (0);
-// }
+int	esc_key(int key, t_mlx *matrix)
+{
+	if (key == 53)
+	{
+		mlx_destroy_window(matrix->ptr, matrix->win);
+		exit(EXIT_SUCCESS);
+	}
+	return (0);
+}

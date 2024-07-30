@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/28 20:34:12 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/29 17:47:20 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 #define NO 3
 #define C 4
 #define F 5
+#define N_D0 0
+#define E_D90 1.5709
+#define S_D180 3.14159
+#define W_D270 4.71239
 // typedef struct s_image
 // {
 // }				t_image;
@@ -90,6 +94,7 @@ typedef struct s_data
 	int		file;
 	double	player_x;
 	double	player_y;
+	double	player_angle;
 	t_pix	view;
 	t_pix	camera;
 }				t_data;
@@ -107,7 +112,6 @@ void	check_texture(t_data *data);
 int		check_for_syntax(char *str);
 int		set_color(char *str, t_data *data);
 char	*extract_line(char *buffer);
-void	free_map(char **map);
 char	**get_map(t_data *data, int fd);
 char	**parse_map(t_data *data, char **map);
 void	free_texture(t_data *data, int num);
@@ -121,3 +125,4 @@ int		search_dir(t_data *data, t_pos pos, t_pos *four_dir);
 void	checking_after_dfs(t_data *data, char **test_map);
 void	check_boundary(t_data *data, char **test_map, int x, int y);
 void	checking_after_dfs(t_data *data, char **test_map);
+void    init_view(t_data *data);

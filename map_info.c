@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:56:44 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/28 18:43:59 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/29 18:19:51 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,32 +156,33 @@ char	**parse_map(t_data *data, char **map)
 	return (buffer);
 }
 
-char	**get_map(t_data *data, int fd)
-{
-	char	*line;
-	char	**map;
-	int		y;
+// char	**get_map(t_data *data, int fd)
+// {
+// 	char	*line;
+// 	char	**map;
+// 	int		y;
 
-	line = get_next_line(fd);
-	while (line && (line[0] == '\n' || line[1] == '\0'))
-		(free(line), line = get_next_line(fd));
-	if (!line)
-		(free(line), close(fd), exit_error(INVALID_MAP, data));
-	map = (char **)malloc(sizeof(char *) * 10000);
-	if (!map)
-		(free(line), close(fd), exit_error(INVALID_MAP, data));
-	y = 0;
-	while (line)
-	{
-		map[y] = (char *)malloc(sizeof(char ) * (ft_strlen(line) + 1));
-		if (!map[y])
-			(free(line), free_map(map), close(fd), exit_error(INVALID_MAP, data));
-		ft_strlcpy(map[y++], line, ft_strlen(line) + 1);
-		(free(line), line = get_next_line(fd));
-	}
-	(free(line), map[y] = NULL);
-	return (map);
-}
+// 	line = get_next_line(fd);
+// 	while (line && (line[0] == '\n' || line[1] == '\0'))
+// 		(free(line), line = get_next_line(fd));
+// 	if (!line)
+// 		(free(line), close(fd), exit_error(INVALID_MAP, data));
+// 	map = (char **)malloc(sizeof(char *) * 10000);
+// 	if (!map)
+// 		(free(line), close(fd), exit_error(INVALID_MAP, data));
+// 	y = 0;
+// 	while (line)
+// 	{
+// 		map[y] = (char *)malloc(sizeof(char ) * (ft_strlen(line) + 1));
+// 		if (!map[y])
+// 			(free(line), free_map(map), close(fd), exit_error(INVALID_MAP, data));
+// 		ft_strlcpy(map[y++], line, ft_strlen(line) + 1);
+// 		(free(line), line = get_next_line(fd));
+// 	}
+// 	(free(line), map[y] = NULL);
+// 	return (map);
+// }
+
 void	put_player_dir(t_data *data, int x, int y)
 {
 	if (data->map[y][x] == 'N')

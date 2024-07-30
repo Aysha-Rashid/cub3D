@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/28 20:34:33 by rosman           ###   ########.fr       */
+/*   Updated: 2024/07/29 18:27:02 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,20 @@ void	handle_map_content(t_data *data, int fd)
 	char	**test_map;
 
 	data->map = get_map(data, fd);
+	// print_map(data->map);
+	// printf("map here is ok\n");
 	data->map = parse_map(data, data->map);
+	// print_map(data->map);
 	close(data->file);
 	if (data->coord.height < 3 || data->coord.width < 3)
-		(free_map(data->map), exit_error("Map is too small!", data));
+		(exit_error("Map is too small!", data));
 	put_player(data);
 	// print_map(data->map);
 	test_map = put_test_map(data->map);
 	// print_map(test_map);
 	dfs(data, test_map, (int) data->player_x, (int) data->player_y);
 	checking_after_dfs(data, test_map);
+	free_map(test_map);
 }
 
 void	check_for_map_info(char *str, t_data *data, int *count)
@@ -125,5 +129,7 @@ void	read_map(int file, t_data *data)
 			close(data->file), exit_error(TEXTURE_ERROR, data));
 	check_texture(data);
 	handle_map_content(data, file);
+	// print_map(data->map);
+	// printf("here");
 	close(file);
 }
