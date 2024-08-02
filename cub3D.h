@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/29 17:47:20 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:40:20 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_data
 int		esc_key(int key, t_mlx *matrix);
 int		check_name(char *argv);
 void	exit_error(char *error, t_data *data);
+void	exit_texture(char *message, t_data *data, char *line);
 void	read_map(int file, t_data *data);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
@@ -123,6 +124,6 @@ void	dfs(t_data *data, char **test_map, int x, int y);
 int		search_corners(t_data *data, t_pos pos, t_pos *four_dir);
 int		search_dir(t_data *data, t_pos pos, t_pos *four_dir);
 void	checking_after_dfs(t_data *data, char **test_map);
-void	check_boundary(t_data *data, char **test_map, int x, int y);
-void	checking_after_dfs(t_data *data, char **test_map);
 void    init_view(t_data *data);
+int		is_trailing_wspace(char *str, int index);
+int		check_valid_character(t_data *data, char *map);

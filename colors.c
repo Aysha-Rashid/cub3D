@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:40:50 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/26 20:49:22 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:44:01 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	convert_rgb(long long int *rgb, t_data *data, char *str)
 		}
 		i++;
 	}
-	color = rgb[0] * (pow(256, 2)) + (rgb[1] * 256) + rgb[2]; // combined decimal values of rgb
+	color = rgb[0] * (pow(256, 2)) + (rgb[1] * 256) + rgb[2];
 	return (color);
 }
 

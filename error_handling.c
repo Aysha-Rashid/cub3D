@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/29 17:17:48 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:43:50 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,6 @@ void	free_map(char **map)
 
 void	exit_error(char *error, t_data *data)
 {
-	// int	i;
-
-	// i = 0;
-	// (void)data;
-	// while (data->map && data->map[0])
-	// 	free(data->map[i++]);
-	// free(data->map);
-	// i = 0;
-	// while (data->paths[i])
-	// {
-	// 	printf("i : %d\n", i);
-	// 	free(data->paths[i++]);
-	// }
 	free_map(data->map);
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error, 2);
@@ -67,4 +54,11 @@ int	esc_key(int key, t_mlx *matrix)
 		exit(EXIT_SUCCESS);
 	}
 	return (0);
+}
+
+void	exit_texture(char *message, t_data *data, char *line)
+{
+	(free(line), close(data->file),
+		free_texture(data, data->path_index - 1),
+		exit_error(message, data));
 }

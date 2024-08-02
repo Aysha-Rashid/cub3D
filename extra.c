@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   extra.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:45:32 by rosman            #+#    #+#             */
-/*   Updated: 2024/07/29 18:24:28 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:44:50 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	print_map(char **map)
+void	print_map(char **map) // just for testing, will remove it later
 {
 	int	i;
 	int	j;
@@ -26,7 +26,7 @@ void	print_map(char **map)
 			printf("%c", map[i][j]);
 			j++;
 		}
-		printf("\n");  // Newline after each row
+		printf("\n");
 		i++;
 	}
 }
@@ -136,61 +136,6 @@ void	dfs(t_data *data, char **test_map, int x, int y)
 		if (!(data->map[y][x] == '1' || data->map[y][x] == 'X')
 				&& test_map[y][x] == 'A')
 			dfs(data, test_map, x, y);
-		i++;
-	}
-}
-
-void	check_boundary(t_data *data, char **test_map, int x, int y)
-{
-	t_pos	four_dir[4];
-	t_pos	pos;
-	int		counter;
-	int		i;
-
-	pos = (t_pos){x, y};
-	if (pos.x == 0 || pos.x == data->coord.width - 1
-		|| pos.y == 0 || pos.y == data->coord.height - 1)
-	{
-		free_map(test_map);
-		exit_error("Map not surrouned by walls", data);
-	}
-	i = 0;
-	counter = search_dir(data, pos, four_dir);
-	while (i < counter)
-	{
-		x = four_dir[i].x;
-		y = four_dir[i].y;
-		if (data->map[y][x] == 'X')
-		{
-			free_map(test_map);
-			exit_error("Map not surrouned by walls", data);
-		}
-		i++;
-	}
-}
-
-void	checking_after_dfs(t_data *data, char **test_map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (test_map[i])
-	{
-		j = 0;
-		while (test_map[i][j])
-		{
-			if (test_map[i][j] == 'V')
-				check_boundary(data, test_map, j, i);
-			else if (test_map[i][j] == 'A'
-				&& !(data->map[i][j] == '1' || data->map[i][j] == 'X'))
-			{
-				free_map(test_map);
-				exit_error("Only spaces beyond map walls and "
-					"no spaces/zeroes allowed within perimeter wall", data);
-			}
-			j++;
-		}
 		i++;
 	}
 }

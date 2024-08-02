@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:19:32 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/30 14:42:59 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:38:48 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,9 @@ void	ft_strcpy(char *dest, char *str)
 		dest[i] = str[i];
 		i++;
 	}
-	// while (i < n)
-	// {
-		dest [i] = '\0';
-	// 	i++;
-	// }
-	// return (dest);
+	dest [i] = '\0';
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;

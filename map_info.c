@@ -3,38 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   map_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:56:44 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/29 18:19:51 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:34:03 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-int	check_valid_character(t_data *data, char *map)
-{
-	int		i;
-	int		count;
-	char	*set;
-
-	count = 0;
-	set = "NSWE10 ";
-	i = 0;
-	while (map[i])
-	{
-		if (!ft_strchr(set, map[i]))
-			exit_error("invalid character in map", data);
-		if (map[i] == 'N' || map[i] == 'S'
-			|| map[i] == 'W' || map[i] == 'E')
-		{
-			count++;
-			i++;
-		}
-		i++;
-	}
-	return (count);
-}
 
 void	parse_mapline(t_data *data, char **map)
 {
@@ -90,18 +67,6 @@ static char	**x_map_mem_alloc(t_data *data, char **map)
 	while (map[i])
 		buffer[i++] = (char *)malloc(max_len + 1);
 	return (buffer[i] = NULL, data->coord.width = max_len, buffer);
-}
-
-int	is_trailing_wspace(char *str, int index) // keeps checking for space in the str from the j index untill the end of the string
-// if anything other then space is found then its not towards the end.
-{
-	while (str[index])
-	{
-		if (str[index] != ' ')
-			return (0);
-		index++;
-	}
-	return (1);
 }
 
 static void	fill_x_map(char **map, char **buffer, int max_len)

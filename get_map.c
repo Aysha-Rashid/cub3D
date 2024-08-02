@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:03:31 by rosman            #+#    #+#             */
-/*   Updated: 2024/07/29 18:19:44 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/02 13:42:52 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 void	ft_map_alloc_clean(char **map, char *line, int y)
 {

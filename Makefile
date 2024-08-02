@@ -9,6 +9,7 @@ M_SRC = main.c \
 		extra.c \
 		get_map.c \
 		viewing.c \
+		checking.c \
 		
 
 M_OBJ = $(M_SRC:.c=.o)
@@ -26,7 +27,7 @@ $(NAME): $(M_OBJ)
 	@cd $(MINILIBX_PATH) && make
 # silent mlx and flags
 	@ $(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) $(MINILIBX_LIB) -o $(NAME)
-# @$(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
+#@$(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@ echo "$(COLOUR_GREEN)compiled $(words $(M_OBJ)) files $(COLOUR_END)"
 
 all: $(NAME)
