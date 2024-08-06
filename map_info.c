@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:56:44 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/02 13:34:03 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/03 20:05:15 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	**x_map_mem_alloc(t_data *data, char **map)
 	while (map[i])
 		i++;
 	buffer = (char **)malloc((i + 1) * (sizeof(char *)));
-	data->coord.height = i;
+	data->map_height = i;
 	i = 0;
 	while (map[i])
 	{
@@ -66,7 +66,7 @@ static char	**x_map_mem_alloc(t_data *data, char **map)
 	i = 0;
 	while (map[i])
 		buffer[i++] = (char *)malloc(max_len + 1);
-	return (buffer[i] = NULL, data->coord.width = max_len, buffer);
+	return (buffer[i] = NULL, data->map_width = max_len, buffer);
 }
 
 static void	fill_x_map(char **map, char **buffer, int max_len)
@@ -97,56 +97,20 @@ static void	fill_x_map(char **map, char **buffer, int max_len)
 	}
 }
 
+
 char	**parse_map(t_data *data, char **map)
 {
-	int		i;
 	char	**buffer;
 
 	buffer = NULL;
-	i = 0;
-	while (map[i])
-	{
-		if (ft_strchr(map[i], '\n'))
-			map[i] = extract_line(map[i]);
-		i++;
-	}
 	parse_mapline(data, map);
 	buffer = x_map_mem_alloc(data, map);
 	if (!buffer)
 		(free_map(map), exit_error(MEMORY_ISSUE, data));
-	fill_x_map(map, buffer, data->coord.width);
-	// map = buffer;
-	// check for edge here
+	fill_x_map(map, buffer, data->map_width);
 	free_map(map);
 	return (buffer);
 }
-
-// char	**get_map(t_data *data, int fd)
-// {
-// 	char	*line;
-// 	char	**map;
-// 	int		y;
-
-// 	line = get_next_line(fd);
-// 	while (line && (line[0] == '\n' || line[1] == '\0'))
-// 		(free(line), line = get_next_line(fd));
-// 	if (!line)
-// 		(free(line), close(fd), exit_error(INVALID_MAP, data));
-// 	map = (char **)malloc(sizeof(char *) * 10000);
-// 	if (!map)
-// 		(free(line), close(fd), exit_error(INVALID_MAP, data));
-// 	y = 0;
-// 	while (line)
-// 	{
-// 		map[y] = (char *)malloc(sizeof(char ) * (ft_strlen(line) + 1));
-// 		if (!map[y])
-// 			(free(line), free_map(map), close(fd), exit_error(INVALID_MAP, data));
-// 		ft_strlcpy(map[y++], line, ft_strlen(line) + 1);
-// 		(free(line), line = get_next_line(fd));
-// 	}
-// 	(free(line), map[y] = NULL);
-// 	return (map);
-// }
 
 void	put_player_dir(t_data *data, int x, int y)
 {

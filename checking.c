@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:33:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/02 13:42:05 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:15:45 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,6 @@ int	check_valid_character(t_data *data, char *map)
 	return (count);
 }
 
-int	is_trailing_wspace(char *str, int index)
-{
-	while (str[index])
-	{
-		if (str[index] != ' ')
-			return (0);
-		index++;
-	}
-	return (1);
-}
-
 void	check_boundary(t_data *data, char **test_map, int x, int y)
 {
 	t_pos	four_dir[4];
@@ -55,8 +44,8 @@ void	check_boundary(t_data *data, char **test_map, int x, int y)
 	int		i;
 
 	pos = (t_pos){x, y};
-	if (pos.x == 0 || pos.x == data->coord.width - 1
-		|| pos.y == 0 || pos.y == data->coord.height - 1)
+	if (pos.x == 0 || pos.x == data->map_width - 1
+		|| pos.y == 0 || pos.y == data->map_height - 1)
 	{
 		free_map(test_map);
 		exit_error("Map not surrouned by walls", data);
@@ -123,4 +112,16 @@ void	check_texture(t_data *data)
 		}
 		i++;
 	}
+}
+
+int	check_name(char *argv)
+{
+	char	*store;
+
+	store = "";
+	if (ft_strchr(argv, '.'))
+		store = ft_strchr(argv, '.') + 1;
+	if (!ft_strcmp(store, "cub"))
+		return (0);
+	return (1);
 }

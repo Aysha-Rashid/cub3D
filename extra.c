@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:45:32 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/02 13:44:50 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:15:33 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ int	search_corners(t_data *data, t_pos pos, t_pos *four_dir)
 		return (four_dir[0] = (t_pos){pos.x, pos.y + 1},
 				four_dir[1] = (t_pos){pos.x + 1, pos.y},
 				2);
-	else if (pos.x == data->coord.width - 1 && pos.y == 0)
+	else if (pos.x == data->map_width - 1 && pos.y == 0)
 		return (four_dir[0] = (t_pos){pos.x, pos.y + 1},
 				four_dir[1] = (t_pos){pos.x - 1, pos.y},
 				2);
-	else if (pos.x == 0 && pos.y == data->coord.height - 1)
+	else if (pos.x == 0 && pos.y == data->map_height - 1)
 		return (four_dir[0] = (t_pos){pos.x, pos.y - 1},
 				four_dir[1] = (t_pos){pos.x + 1, pos.y},
 				2);
-	else if (pos.x == data->coord.width - 1
-		&& pos.y == data->coord.height - 1)
+	else if (pos.x == data->map_width - 1
+		&& pos.y == data->map_height - 1)
 		return (four_dir[0] = (t_pos){pos.x, pos.y - 1},
 				four_dir[1] = (t_pos){pos.x - 1, pos.y},
 				2);
@@ -84,7 +84,7 @@ int	search_corners(t_data *data, t_pos pos, t_pos *four_dir)
 
 int	search_mid(t_data *data, t_pos pos, t_pos *four_dir)
 {
-	if (pos.y == data->coord.height - 1)
+	if (pos.y == data->map_height - 1)
 		return (four_dir[0] = (t_pos){pos.x, pos.y - 1},
 				four_dir[1] = (t_pos){pos.x - 1, pos.y},
 				four_dir[2] = (t_pos){pos.x + 1, pos.y},
@@ -94,7 +94,7 @@ int	search_mid(t_data *data, t_pos pos, t_pos *four_dir)
 				four_dir[1] = (t_pos){pos.x, pos.y + 1},
 				four_dir[2] = (t_pos){pos.x + 1, pos.y},
 				3);
-	else if (pos.x == data->coord.width - 1)
+	else if (pos.x == data->map_width - 1)
 		return (four_dir[0] = (t_pos){pos.x, pos.y - 1},
 				four_dir[1] = (t_pos){pos.x, pos.y + 1},
 				four_dir[2] = (t_pos){pos.x - 1, pos.y},

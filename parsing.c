@@ -6,13 +6,13 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/02 13:40:54 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:12:17 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	texture_parsing(t_data *data, t_mlx	*texture, char *line, int *flag)
+void	texture_parsing(t_data *data, t_wall *texture, char *line, int *flag)
 {
 	char		*store;
 
@@ -20,14 +20,18 @@ void	texture_parsing(t_data *data, t_mlx	*texture, char *line, int *flag)
 		exit_texture(DUP, data, line);
 	store = ft_strtrim(ft_strchr(line, ' ') + 1, " \n\t\v");
 	data->paths[data->path_index++] = ft_strdup(store);
-	texture->img = mlx_xpm_file_to_image(data->mlx.ptr, store,
-			&(data->mlx.fixed_width), &(data->mlx.fixed_height));
+	texture->img = mlx_xpm_file_to_image(data->mlx.mlx_ptr, store,
+			&(data->image.texture->fixed_width),
+			&(data->image.texture->fixed_height));
+	// printf("fixed_width %d\n : ", data->image.texture->fixed_width);
+	// printf("fixed_height %d\n : ", data->image.texture->fixed_height);
 	free(store);
 	if (!texture->img)
 		exit_texture(WRONG_FILE, data, line);
 	texture->img_pixels_ptr = (int *)mlx_get_data_addr(texture->img,
 			&(texture->bpp), &(texture->size_line),
 			&(texture->endian));
+	printf("img_pixel_ptr : %d\n", *texture->img_pixels_ptr);
 	*flag = *flag + 1;
 }
 
@@ -64,7 +68,7 @@ void	handle_map_content(t_data *data, int fd)
 	data->map = get_map(data, fd);
 	data->map = parse_map(data, data->map);
 	close(data->file);
-	if (data->coord.height < 3 || data->coord.width < 3)
+	if (data->map_height < 3 || data->map_width < 3)
 		(exit_error("Map is too small!", data));
 	put_player(data);
 	test_map = put_test_map(data->map);

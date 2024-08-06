@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/02 13:43:50 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/05 17:19:44 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,24 @@ void	exit_error(char *error, t_data *data)
 	exit(1);
 }
 
-int	check_name(char *argv)
-{
-	char	*store;
-
-	store = "";
-	if (ft_strchr(argv, '.'))
-		store = ft_strchr(argv, '.') + 1;
-	if (!ft_strcmp(store, "cub"))
-		return (0);
-	return (1);
-}
-
-int	esc_key(int key, t_mlx *matrix)
+int	esc_key(int key, t_img_mlx *matrix)
 {
 	if (key == 53)
 	{
-		mlx_destroy_window(matrix->ptr, matrix->win);
+		mlx_destroy_window(matrix->mlx_ptr, matrix->win_ptr);
 		exit(EXIT_SUCCESS);
 	}
+	return (0);
+}
+
+int	ft_destroy(t_data *data)
+{
+	mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.win_ptr);
+	// if (data->mlx.img_pixels_ptr)
+	// 	mlx_destroy_image(data->mlx.ptr, data->mlx.img_pixels_ptr);
+	free_texture(data, data->path_index - 1);
+	free_map(data->map);
+	exit(0);
 	return (0);
 }
 

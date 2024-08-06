@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:19:32 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/02 13:38:48 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/02 14:13:14 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,46 +52,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (buffer);
 }
 
-int	skip_space_and_count(char *line)
+int	is_trailing_wspace(char *str, int index)
 {
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (line[i])
+	while (str[index])
 	{
-		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
-		{
-			count++;
-			i++;
-		}
-		else
-			i++;
+		if (str[index] != ' ')
+			return (0);
+		index++;
 	}
-	return (count);
+	return (1);
 }
 
-char	*extract_line(char *buffer)
-{
-	int		i;
-	char	*line;
-
-	i = 0;
-	line = NULL;
-	if (buffer == NULL || buffer[i] == '\0')
-		return (NULL);
-	while (buffer[i] != '\n' && buffer[i] != '\0')
-		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
-	i = 0;
-	while (buffer[i] != '\n' && buffer[i] != '\0')
-	{
-		line[i] = buffer[i];
-		i++;
-	}
-	if (buffer[i] == '\n')
-		line[i++] = '\0';
-	line[i] = '\0';
-	return (line);
-}
