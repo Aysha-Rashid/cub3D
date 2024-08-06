@@ -6,32 +6,62 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/06 17:12:17 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/06 20:13:07 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+// void print_pixel_data(t_wall *texture)
+// {
+//     int bpp = texture->bpp / 8; // Convert bits per pixel to bytes per pixel
+// 	(void)bpp;
+//     int width = texture->fixed_width;
+//     int height = texture->fixed_height;
+//     int *pixels = texture->img_pixels_ptr;
+
+//     // Print pixel data for the first few rows and columns
+//     printf("Printing first few pixel values:\n");
+//     for (int y = 0; y < height && y < 5; y++) { // Limiting to the first 5 rows
+//         for (int x = 0; x < width && x < 5; x++) { // Limiting to the first 5 columns
+//             int index = (y * width + x); // Calculate the index in the pixel array
+
+//             uint32_t color = pixels[index]; // Get the pixel value (assuming 32-bit color)
+
+//             // Extract individual color components (assuming 8-bit per component and ARGB format)
+//             uint8_t a = (color >> 24) & 0xFF; // Alpha component
+//             uint8_t r = (color >> 16) & 0xFF; // Red component
+//             uint8_t g = (color >> 8) & 0xFF;  // Green component
+//             uint8_t b = color & 0xFF;         // Blue component
+
+//             printf("Pixel (%d, %d): ARGB(%d, %d, %d, %d)\n", x, y, a, r, g, b);
+//         }
+//     }
+// }
+
 void	texture_parsing(t_data *data, t_wall *texture, char *line, int *flag)
 {
-	char		*store;
+	char	*store;
 
 	if (texture->img)
 		exit_texture(DUP, data, line);
 	store = ft_strtrim(ft_strchr(line, ' ') + 1, " \n\t\v");
 	data->paths[data->path_index++] = ft_strdup(store);
 	texture->img = mlx_xpm_file_to_image(data->mlx.mlx_ptr, store,
-			&(data->image.texture->fixed_width),
-			&(data->image.texture->fixed_height));
-	// printf("fixed_width %d\n : ", data->image.texture->fixed_width);
-	// printf("fixed_height %d\n : ", data->image.texture->fixed_height);
+			&(texture->fixed_width),
+			&(texture->fixed_height));
 	free(store);
 	if (!texture->img)
 		exit_texture(WRONG_FILE, data, line);
 	texture->img_pixels_ptr = (int *)mlx_get_data_addr(texture->img,
 			&(texture->bpp), &(texture->size_line),
 			&(texture->endian));
-	printf("img_pixel_ptr : %d\n", *texture->img_pixels_ptr);
+	if (!texture->img_pixels_ptr)
+		exit_texture("Failed to get texture data address", data, line);
+// 	for (int i = 0; i < 4; i++) {
+//     printf("Texture %d: First pixel color = %X\n", i, 
+//            data->image.texture[i].img_pixels_ptr[0]);
+// }
 	*flag = *flag + 1;
 }
 

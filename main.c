@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/06 16:20:10 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:21:58 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	init_data(t_data *data, char *file_name)
 	data->map_width = 0;
 	data->map_height = 0;
 	data->path_index = 0;
-	// data->screen_height = SCREEN_HEIGHT;
-	// data->screen_width = SCREEN_WIDTH;
 	data->image.texture[SO].img = NULL;
 	data->image.texture[WE].img = NULL;
 	data->image.texture[EA].img = NULL;
@@ -36,8 +34,8 @@ void	init_data(t_data *data, char *file_name)
 	while (i < 4)
 		data->paths[i++] = NULL;
 	read_map(data->file, data);
-	// close(data->file);
 }
+
 
 void	free_texture(t_data *data, int num)
 {
