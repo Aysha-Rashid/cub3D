@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:26:01 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/06 17:43:32 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:01:12 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	init_view(t_data *data)
 
 void	delta_dist(t_dda *dda)
 {
-	if (dda->ray_dir.x == 0.0)
+	if (dda->ray_dir.x == 0.00)
 		dda->delta_dist_x = 1e30;
 	else
 		dda->delta_dist_x = fabs(1 / dda->ray_dir.x);
-	if (dda->ray_dir.y == 0.0)
+	if (dda->ray_dir.y == 0.00)
 		dda->delta_dist_y = 1e30;
 	else
 		dda->delta_dist_y = fabs(1 / dda->ray_dir.y);
@@ -66,7 +66,7 @@ void	side_dist(t_pix *pos, t_dda *dda)
 		dda->side_dist_y = (1 - (pos->y - dda->map.y)) * dda->delta_dist_y;
 	}
 }
-void	init_dda_delta_side(t_data *data, t_dda *dda, int x, t_pix *ray_dir)
+void	init_dda_delta_side(t_data *data, t_dda *dda, double x, t_pix *ray_dir)
 {
 	dda->camera_x = (2 * x / data->screen_width) - 1;
 	dda->side = 0;
@@ -95,7 +95,7 @@ void	dda_algor(t_data *data, t_dda *dda)
 			dda->map.y += dda->step_y;
 			dda->side = 1;
 		}
-		if (data->map[(int)dda->map.y][(int)dda->map.x] == '1')
+		if (data->map[(int) dda->map.y][(int) dda->map.x] == '1')
 			dda->hit = 1;
 	}
 }
@@ -198,7 +198,7 @@ int	get_color(t_data *data, int index, int x, int y)
 	color = 0;
 	offset = (data->image.texture[index].fixed_width * y) + (x);
 	// printf("color : %d\n", *data->image.texture[index].img_pixels_ptr);
-	color = *(data->image.texture[index].img_pixels_ptr) + offset;
+	color = *(data->image.texture[index].img_pixels_ptr + offset);
 	// printf("color : %d\n", *data->image.texture[index].img_pixels_ptr);
 	// color = 16777215;
 	return (color);
@@ -250,7 +250,7 @@ void	drawing_walls(t_data *data, t_dda *dda, t_wall *tex, int slice)
 			color = (color >> 1) & 8355711;
 		offset = (data->screen_width * dda->start) + slice;
 		*(data->mlx.img_pixels_ptr + offset) = color;
-		printf("data->mlx.img_pixels_ptr : %d\n", *data->mlx.img_pixels_ptr);
+		// printf("data->mlx.img_pixels_ptr : %d\n", *data->mlx.img_pixels_ptr);
 		
 		dda->start++;
 	}
@@ -275,22 +275,118 @@ void	drawing_walls(t_data *data, t_dda *dda, t_wall *tex, int slice)
 	// }
 }
 
-void	flush(t_data *game)
+void	flush(t_data *data)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < game->screen_height)
+	while (y < data->screen_height)
 	{
 		x = 0;
-		while (x < game->screen_width)
+		while (x < data->screen_width)
 		{
-			my_pixel_put(game, x, y, 0x000000);
+			my_pixel_put(data, x, y, 0x000000);
 			x++;
 		}
 		y++;
 	}
+}
+
+static void	check_up_down(t_data *data, t_pix *target_v, int flag)
+{
+	if (flag == W_KEY)
+	{
+		target_v->x += (data->view.x * (MOVE_SPEED));
+		target_v->y += (data->view.y * (MOVE_SPEED));
+	}
+	if (flag == S_KEY)
+	{
+		target_v->x -= (data->view.x * (MOVE_SPEED));
+		target_v->y -= (data->view.y * (MOVE_SPEED));
+	}
+}
+
+static void	check_left_right(t_data *data, t_pix *target_v, int flag)
+{
+	if (flag == A_KEY)
+	{
+		target_v->x -= (-data->view.y * (MOVE_SPEED));
+		target_v->y -= (data->view.x * (MOVE_SPEED));
+	}
+	if (flag == D_KEY)
+	{
+		target_v->x += (-data->view.y * (MOVE_SPEED));
+		target_v->y += (data->view.x * (MOVE_SPEED));
+	}
+}
+
+
+int	check_valid_move(t_data *data, int flag)
+{
+	t_pix	target_v;
+
+	target_v = (t_pix){data->player_x, data->player_y};
+	check_up_down(data, &target_v, flag);
+	check_left_right(data, &target_v, flag);
+	if (data->map[(int) target_v.y][(int) target_v.x] == '1'
+		|| data->map[(int) target_v.y][(int) target_v.x] == 'X')
+		return (0);
+	return (1);
+}
+
+void	move_up(t_data *data)
+{
+	if (data->move_up == 0)
+		return ;
+	if (check_valid_move(data, W_KEY) == 1)
+	{
+		data->player_x += (data->view.x * MOVE_SPEED);
+		data->player_y += (data->view.y * MOVE_SPEED);
+	}
+}
+
+void	move_down(t_data *data)
+{
+	if (data->move_down == 0)
+		return ;
+	if (check_valid_move(data, S_KEY) == 1)
+	{
+		data->player_x -= (data->view.x * MOVE_SPEED);
+		data->player_y -= (data->view.y * MOVE_SPEED);
+	}
+}
+
+void	move_left(t_data *data)
+{
+	if (data->move_left == 0)
+		return ;
+	if (check_valid_move(data, A_KEY) == 1)
+	{
+		data->player_x -= (-data->view.y * MOVE_SPEED);
+		data->player_y -= (data->view.x * MOVE_SPEED);
+	}
+}
+
+void	move_right(t_data *data)
+{
+	if (data->move_right == 0)
+		return ;
+	if (check_valid_move(data, D_KEY) == 1)
+	{
+		data->player_x += (-data->view.y * MOVE_SPEED);
+		data->player_y += (data->view.x * MOVE_SPEED);
+	}
+}
+
+void	moveing(t_data *data)
+{
+	move_up(data);
+	move_down(data);
+	move_left(data);
+	move_right(data);
+	rotate_left(data);
+	rotate_right(data);
 }
 
 int	ray_cast(void	*param)
@@ -299,17 +395,19 @@ int	ray_cast(void	*param)
 	t_dda	dda;
 	t_wall	wall;
 	t_pix	pos;
-	int		slice;
+	double		slice;
 
 	data = (t_data *) param;
-	// movement
+	moveing(data);
 	flush(data);
 	slice = -1;
 	pos = (t_pix){data->player_x, data->player_y};
 	while (++slice < data->screen_width)
 	{
+		// printf("slice ; %f\n&(dda.ray_dir).x : %f, \n&(dda.ray_dir.y) : %f\n\n", slice, (dda.ray_dir.x), (dda.ray_dir.y));
 		init_dda_delta_side(data, &dda, slice, &(dda.ray_dir));
 		side_dist(&pos, &dda);
+		// printf("side_dist_x : %f\nside_dist_y : %f\n\ndelta_dist_x : %f\ndelta_dist_y : %f\n", dda.side_dist_x, dda.side_dist_y,dda.delta_dist_x,dda.delta_dist_y);
 		dda_algor(data, &dda);
 		calc_start_end(&dda, data);
 		set_wall(data, &dda, &wall);

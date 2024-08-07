@@ -10,6 +10,7 @@ M_SRC = main.c \
 		get_map.c \
 		viewing.c \
 		checking.c \
+		controls.c \
 		
 
 M_OBJ = $(M_SRC:.c=.o)
@@ -39,6 +40,7 @@ clean:
 # @ rm -f $(M_OBJ)
 
 fclean: clean
+	@ cd libft && make fclean
 	@ rm -f $(NAME)
 
 re: fclean all

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/06 16:20:10 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:56:09 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ void	free_texture(t_data *data, int num)
 
 void	init_mlx(t_img_mlx mlx)
 {
-	mlx.bpp = 0;
-	mlx.endian = 0;
+	// mlx.bpp = 0;
+	// mlx.endian = 0;
 	// mlx.mlx_ptr = NULL;
 	// mlx.win_ptr = NULL;
 	mlx.img_ptr = NULL;
-	mlx.img_pixels_ptr = 0;
-	mlx.size_line = 0;
+	// mlx.img_pixels_ptr = 0;
+	// mlx.size_line = 0;
 }
 
 int	main(int argc, char **argv)
@@ -70,8 +70,8 @@ int	main(int argc, char **argv)
 		data.screen_width = SCREEN_WIDTH;
 		init_mlx(data.mlx);
 		data.mlx.mlx_ptr = mlx_init();
-		data.mlx.win_ptr = mlx_new_window(data.mlx.mlx_ptr, 1000,
-				1000, "cub3d");
+		data.mlx.win_ptr = mlx_new_window(data.mlx.mlx_ptr, data.screen_width,
+				data.screen_height, "cub3d");
 		data.mlx.img_ptr = mlx_new_image(data.mlx.mlx_ptr,
 				data.screen_width, data.screen_height);
 		if (data.mlx.img_ptr == NULL)
@@ -86,8 +86,11 @@ int	main(int argc, char **argv)
 		init_view(&data);
 		mlx_key_hook(data.mlx.win_ptr, esc_key, &data.mlx); // remember to call ft_dostory!!
 		mlx_hook(data.mlx.win_ptr, 17, 0, ft_destroy, &data);
+		mlx_hook(data.mlx.win_ptr, 2, 1L << 0, key_press, &data);
+		mlx_hook(data.mlx.win_ptr, 3, 1L << 1, key_release, &data);
 		// movement needs to done
 		mlx_loop_hook(data.mlx.mlx_ptr, ray_cast, &data);
+		// mlx_put_image_to_window(data.mlx.mlx_ptr, data.mlx.win_ptr, data.image.texture[3].img, 0, 0);
 		mlx_loop(data.mlx.mlx_ptr);
 	}
 }

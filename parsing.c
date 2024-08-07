@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/06 17:12:17 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:29:21 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ void	texture_parsing(t_data *data, t_wall *texture, char *line, int *flag)
 		exit_texture(DUP, data, line);
 	store = ft_strtrim(ft_strchr(line, ' ') + 1, " \n\t\v");
 	data->paths[data->path_index++] = ft_strdup(store);
+	// printf("stor : i: %s\n", store);
+	// exit(0);
 	texture->img = mlx_xpm_file_to_image(data->mlx.mlx_ptr, store,
-			&(data->image.texture->fixed_width),
-			&(data->image.texture->fixed_height));
+			&(texture->fixed_width),
+			&(texture->fixed_height));
 	// printf("fixed_width %d\n : ", data->image.texture->fixed_width);
 	// printf("fixed_height %d\n : ", data->image.texture->fixed_height);
 	free(store);
@@ -31,7 +33,9 @@ void	texture_parsing(t_data *data, t_wall *texture, char *line, int *flag)
 	texture->img_pixels_ptr = (int *)mlx_get_data_addr(texture->img,
 			&(texture->bpp), &(texture->size_line),
 			&(texture->endian));
-	printf("img_pixel_ptr : %d\n", *texture->img_pixels_ptr);
+	// printf("img_pixel_ptr : %d\n", *texture->img_pixels_ptr);
+	
+	// exit(0);
 	*flag = *flag + 1;
 }
 

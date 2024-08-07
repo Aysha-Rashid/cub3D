@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/06 16:21:06 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:20:22 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@
 #define MEMORY_ISSUE "allocation failed"
 #define COLOR_ISSUE "Same color for Ceiling and Floor"
 
-#define SO 0
-#define WE 1
+#define SO 1
+#define WE 3
 #define EA 2
-#define NO 3
+#define NO 0
 #define C 4
 #define F 5
 #define N_D0 0
@@ -41,6 +41,19 @@
 #define W_D270 4.71239
 #define SCREEN_HEIGHT 1000
 #define SCREEN_WIDTH 1000
+
+# define MOVE_SPEED 0.05
+# define ROT_SPEED	0.05
+
+//Mac_OS
+# define W_KEY 13
+# define A_KEY 0
+# define S_KEY 1
+# define D_KEY 2
+# define ESC_KEY 53
+# define L_ARROW 123
+# define R_ARROW 124
+
 
 
 typedef struct s_pos // independent coordinates in the map
@@ -85,7 +98,7 @@ typedef struct s_dda
 {
 	t_pix	ray_dir;
 	t_pix	map;
-	int		camera_x;
+	double		camera_x;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
@@ -96,7 +109,7 @@ typedef struct s_dda
 	int		side;
 	int		start;
 	int		end;
-	double	line_height;
+	int	line_height;
 }				t_dda;
 
 typedef struct s_img_mlx {
@@ -117,6 +130,12 @@ typedef struct s_data
 	int			map_height;
 	int			screen_height;
 	int			screen_width;
+	int			move_up;
+	int			move_down;
+	int			move_right;
+	int			move_left;
+	int			rot_right;
+	int			rot_left;
 	char		**map;
 	char		*paths[4];
 	int			path_index;
@@ -156,3 +175,7 @@ int		is_trailing_wspace(char *str, int index);
 int		check_valid_character(t_data *data, char *map);
 int		ft_destroy(t_data *data);
 int		ray_cast(void	*param);
+void	rotate_left(t_data *data);
+void	rotate_right(t_data *data);
+int		key_press(int keycode, t_data *data);
+int		key_release(int keycode, t_data *data);
