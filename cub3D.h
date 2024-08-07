@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/07 18:20:22 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/07 21:15:24 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ typedef struct s_image
 {
 	int		floor;
 	int		ceiling;
-	t_wall	texture[6];
+	t_wall	texture[4];
 }				t_image;
 
 typedef struct s_pix // vector of the map

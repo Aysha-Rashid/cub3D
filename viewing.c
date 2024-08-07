@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:26:01 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/07 18:01:12 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/07 21:18:49 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,28 +144,6 @@ void	set_wall(t_data	*data, t_dda *dda, t_wall *tex)
 		tex->tex_x = data->image.texture[3].fixed_width - (tex->tex_x + 1);
 	if (dda->side == 1 && dda->ray_dir.y > 0)
 		tex->tex_x = data->image.texture[3].fixed_width - (tex->tex_x + 1);
-	// if (dda->side == 0)
-	// {
-	// 	wall->wall_x = data->player_y
-	// 		+ dda->side_dist_x * dda->ray_dir.y;
-	// 	wall->wall_x -= floor(wall->wall_x);
-	// }
-	// else
-	// {
-	// 	wall->wall_x = data->player_x
-	// 		+ dda->side_dist_y * dda->ray_dir.x;
-	// 	wall->wall_x -= floor(wall->wall_x);
-	// }
-	// printf("here");
-	// wall->tex_x = (int)(wall->wall_x
-	// 		* wall[0].fixed_width);
-	// if (dda->side == 0 && dda->ray_dir.x < 0)
-	// 	wall->tex_x = wall[0].fixed_width
-	// 		- (wall->tex_x + 1);
-	// if (dda->side == 1 && dda->ray_dir.y > 0)
-	// 	wall->tex_x = wall[0].fixed_width
-	// 		- (wall->tex_x + 1);
-	// printf("set_wall : y : %d\n", wall->tex_x);
 }
 
 static int	get_index(t_dda *dda)
@@ -187,7 +165,6 @@ void	my_pixel_put(t_data *data, int x, int y, int color)
 
 	offset = (data->screen_width * y) + x;
 	*(offset + data->mlx.img_pixels_ptr) = color;
-	// printf("color : %d\n", color);
 }
 
 int	get_color(t_data *data, int index, int x, int y)
@@ -197,10 +174,7 @@ int	get_color(t_data *data, int index, int x, int y)
 
 	color = 0;
 	offset = (data->image.texture[index].fixed_width * y) + (x);
-	// printf("color : %d\n", *data->image.texture[index].img_pixels_ptr);
 	color = *(data->image.texture[index].img_pixels_ptr + offset);
-	// printf("color : %d\n", *data->image.texture[index].img_pixels_ptr);
-	// color = 16777215;
 	return (color);
 }
 
@@ -220,7 +194,6 @@ void	drawing_c_f(t_data *data, t_dda *dda, int slice, int color)
 	{
 		start = dda->start;
 		end = data->screen_height;
-		// printf("start : %d\n", end);
 	}
 	while (start < end)
 	{
@@ -243,36 +216,15 @@ void	drawing_walls(t_data *data, t_dda *dda, t_wall *tex, int slice)
 	{
 		tex->tex_y = (int) tex->tex_pos & (data->image.texture[index].fixed_height - 1);
 		tex->tex_pos += tex->step;
-		// color = 16777215;
-		// printf("index : %d\n", index);
 		color = get_color(data, index, tex->tex_x, tex->tex_y);
-		if (dda->side == 1)
-			color = (color >> 1) & 8355711;
+		// printf("color : %d\n", color);
+		// exit(0);
+		// if (dda->side == 1)
+		// 	color = (color >> 1) & 8355711;
 		offset = (data->screen_width * dda->start) + slice;
 		*(data->mlx.img_pixels_ptr + offset) = color;
-		// printf("data->mlx.img_pixels_ptr : %d\n", *data->mlx.img_pixels_ptr);
-		
 		dda->start++;
 	}
-	// int		color;
-	// int		offset;
-	// int		index;
-	// // double	wall->tex_pos;
-
-	// index = get_index(dda);
-	// wall->step = ((double) data->image.texture[index].fixed_height / dda->line_height);
-	// wall->tex_pos = (dda->start - data->screen_height / 2 + 3 * dda->line_height / 4) * wall->step;
-	// while (dda->start < dda->end)
-	// {
-	// 	wall->tex_y = (int) wall->tex_pos & (data->image.texture[index].fixed_height - 1);
-	// 	wall->tex_pos += wall->step;
-	// 	color = get_color(data, index, wall->tex_x, wall->tex_y);
-	// 	if (dda->side == 1)
-	// 		color = (color >> 1) & 8355711;
-	// 	offset = (data->screen_width * dda->start) + slice;
-	// 	*(data->mlx.img_pixels_ptr + offset) = color;
-	// 	dda->start++;
-	// }
 }
 
 void	flush(t_data *data)

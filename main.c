@@ -6,7 +6,7 @@
 /*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/07 16:56:09 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/07 21:16:48 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	init_data(t_data *data, char *file_name)
 	data->map_width = 0;
 	data->map_height = 0;
 	data->path_index = 0;
-	// data->screen_height = SCREEN_HEIGHT;
-	// data->screen_width = SCREEN_WIDTH;
 	data->image.texture[SO].img = NULL;
 	data->image.texture[WE].img = NULL;
 	data->image.texture[EA].img = NULL;
@@ -36,8 +34,8 @@ void	init_data(t_data *data, char *file_name)
 	while (i < 4)
 		data->paths[i++] = NULL;
 	read_map(data->file, data);
-	// close(data->file);
 }
+
 
 void	free_texture(t_data *data, int num)
 {
@@ -88,7 +86,6 @@ int	main(int argc, char **argv)
 		mlx_hook(data.mlx.win_ptr, 17, 0, ft_destroy, &data);
 		mlx_hook(data.mlx.win_ptr, 2, 1L << 0, key_press, &data);
 		mlx_hook(data.mlx.win_ptr, 3, 1L << 1, key_release, &data);
-		// movement needs to done
 		mlx_loop_hook(data.mlx.mlx_ptr, ray_cast, &data);
 		// mlx_put_image_to_window(data.mlx.mlx_ptr, data.mlx.win_ptr, data.image.texture[3].img, 0, 0);
 		mlx_loop(data.mlx.mlx_ptr);
