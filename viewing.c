@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:26:01 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/07 21:18:49 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/08 15:47:06 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	side_dist(t_pix *pos, t_dda *dda)
 		dda->side_dist_y = (1 - (pos->y - dda->map.y)) * dda->delta_dist_y;
 	}
 }
+
 void	init_dda_delta_side(t_data *data, t_dda *dda, double x, t_pix *ray_dir)
 {
 	dda->camera_x = (2 * x / data->screen_width) - 1;
@@ -102,7 +103,6 @@ void	dda_algor(t_data *data, t_dda *dda)
 
 void	calc_start_end(t_dda *dda, t_data *data)
 {
-	(void)data;
 	if (dda->side == 0)
 	{
 		dda->side_dist_x -= dda->delta_dist_x;
@@ -249,13 +249,13 @@ static void	check_up_down(t_data *data, t_pix *target_v, int flag)
 {
 	if (flag == W_KEY)
 	{
-		target_v->x += (data->view.x * (MOVE_SPEED));
-		target_v->y += (data->view.y * (MOVE_SPEED));
+		target_v->x += (data->view.x * (SPEED));
+		target_v->y += (data->view.y * (SPEED));
 	}
 	if (flag == S_KEY)
 	{
-		target_v->x -= (data->view.x * (MOVE_SPEED));
-		target_v->y -= (data->view.y * (MOVE_SPEED));
+		target_v->x -= (data->view.x * (SPEED));
+		target_v->y -= (data->view.y * (SPEED));
 	}
 }
 
@@ -263,13 +263,13 @@ static void	check_left_right(t_data *data, t_pix *target_v, int flag)
 {
 	if (flag == A_KEY)
 	{
-		target_v->x -= (-data->view.y * (MOVE_SPEED));
-		target_v->y -= (data->view.x * (MOVE_SPEED));
+		target_v->x -= (-data->view.y * (SPEED));
+		target_v->y -= (data->view.x * (SPEED));
 	}
 	if (flag == D_KEY)
 	{
-		target_v->x += (-data->view.y * (MOVE_SPEED));
-		target_v->y += (data->view.x * (MOVE_SPEED));
+		target_v->x += (-data->view.y * (SPEED));
+		target_v->y += (data->view.x * (SPEED));
 	}
 }
 
@@ -293,8 +293,8 @@ void	move_up(t_data *data)
 		return ;
 	if (check_valid_move(data, W_KEY) == 1)
 	{
-		data->player_x += (data->view.x * MOVE_SPEED);
-		data->player_y += (data->view.y * MOVE_SPEED);
+		data->player_x += (data->view.x * SPEED);
+		data->player_y += (data->view.y * SPEED);
 	}
 }
 
@@ -304,8 +304,8 @@ void	move_down(t_data *data)
 		return ;
 	if (check_valid_move(data, S_KEY) == 1)
 	{
-		data->player_x -= (data->view.x * MOVE_SPEED);
-		data->player_y -= (data->view.y * MOVE_SPEED);
+		data->player_x -= (data->view.x * SPEED);
+		data->player_y -= (data->view.y * SPEED);
 	}
 }
 
@@ -315,8 +315,8 @@ void	move_left(t_data *data)
 		return ;
 	if (check_valid_move(data, A_KEY) == 1)
 	{
-		data->player_x -= (-data->view.y * MOVE_SPEED);
-		data->player_y -= (data->view.x * MOVE_SPEED);
+		data->player_x -= (-data->view.y * SPEED);
+		data->player_y -= (data->view.x * SPEED);
 	}
 }
 
@@ -326,12 +326,12 @@ void	move_right(t_data *data)
 		return ;
 	if (check_valid_move(data, D_KEY) == 1)
 	{
-		data->player_x += (-data->view.y * MOVE_SPEED);
-		data->player_y += (data->view.x * MOVE_SPEED);
+		data->player_x += (-data->view.y * SPEED);
+		data->player_y += (data->view.x * SPEED);
 	}
 }
 
-void	moveing(t_data *data)
+void	moving(t_data *data)
 {
 	move_up(data);
 	move_down(data);
@@ -347,19 +347,17 @@ int	ray_cast(void	*param)
 	t_dda	dda;
 	t_wall	wall;
 	t_pix	pos;
-	double		slice;
+	double	slice;
 
 	data = (t_data *) param;
-	moveing(data);
+	moving(data);
 	flush(data);
 	slice = -1;
 	pos = (t_pix){data->player_x, data->player_y};
 	while (++slice < data->screen_width)
 	{
-		// printf("slice ; %f\n&(dda.ray_dir).x : %f, \n&(dda.ray_dir.y) : %f\n\n", slice, (dda.ray_dir.x), (dda.ray_dir.y));
 		init_dda_delta_side(data, &dda, slice, &(dda.ray_dir));
 		side_dist(&pos, &dda);
-		// printf("side_dist_x : %f\nside_dist_y : %f\n\ndelta_dist_x : %f\ndelta_dist_y : %f\n", dda.side_dist_x, dda.side_dist_y,dda.delta_dist_x,dda.delta_dist_y);
 		dda_algor(data, &dda);
 		calc_start_end(&dda, data);
 		set_wall(data, &dda, &wall);
@@ -369,5 +367,4 @@ int	ray_cast(void	*param)
 	}
 	return (mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr,
 			data->mlx.img_ptr, 0, 0), 0);
-	// return(0);
 }

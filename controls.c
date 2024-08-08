@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:12:16 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/07 15:15:59 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/08 15:47:18 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	rotate_angle(t_data *data, t_pix *vec, int flag)
 
 	vec_x_save = vec->x;
 	if (flag == 1)
-		angle = -ROT_SPEED;
+		angle = -SPEED;
 	else
-		angle = ROT_SPEED;
+		angle = SPEED;
 	vec->x = cos(angle) * vec->x - sin(angle) * vec->y;
 	vec->y = sin(angle) * vec_x_save + cos(angle) * vec->y;
 	data->player_angle += angle / 2;

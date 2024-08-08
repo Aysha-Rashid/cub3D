@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:33:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/03 19:15:45 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:27:05 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	checking_after_dfs(t_data *data, char **test_map)
 			else if (test_map[i][j] == 'A'
 				&& !(data->map[i][j] == '1' || data->map[i][j] == 'X'))
 			{
+				print_map(test_map);
+				printf("x: %d\n y: %d\n", i, j);
 				free_map(test_map);
 				exit_error("Only spaces beyond map walls and "
 					"no spaces/zeroes allowed within perimeter wall", data);

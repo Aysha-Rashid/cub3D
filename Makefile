@@ -16,7 +16,7 @@ M_SRC = main.c \
 M_OBJ = $(M_SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -O3 #remove the sanitize flag
+CFLAGS = -Wall -Wextra -Werror -g #remove the sanitize flag
 
 LIBFTPATH = libft
 LIBFT = -L${LIBFTPATH} -lft

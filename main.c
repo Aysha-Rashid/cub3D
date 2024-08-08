@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/07 21:16:48 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/08 14:42:56 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ void	init_data(t_data *data, char *file_name)
 	data->image.texture[WE].img = NULL;
 	data->image.texture[EA].img = NULL;
 	data->image.texture[NO].img = NULL;
+	data->move_up = 0;
+	data->move_down = 0;
+	data->move_right = 0;
+	data->move_left = 0;
+	data->rot_left = 0;
+	data->rot_right = 0;
 	data->image.ceiling = -1;
 	data->image.floor = -1;
 	data->map = NULL;
@@ -43,15 +49,26 @@ void	free_texture(t_data *data, int num)
 		free(data->paths[num--]);
 }
 
-void	init_mlx(t_img_mlx mlx)
+void	init_mlx(t_data *data)
 {
-	// mlx.bpp = 0;
-	// mlx.endian = 0;
-	// mlx.mlx_ptr = NULL;
-	// mlx.win_ptr = NULL;
-	mlx.img_ptr = NULL;
-	// mlx.img_pixels_ptr = 0;
-	// mlx.size_line = 0;
+	data->mlx.mlx_ptr = mlx_init();
+	data->mlx.win_ptr = mlx_new_window(data->mlx.mlx_ptr, data->screen_width,
+			data->screen_height, "cub3d");
+	data->mlx.img_ptr = mlx_new_image(data->mlx.mlx_ptr,
+			data->screen_width, data->screen_height);
+	if (data->mlx.img_ptr == NULL)
+	{
+		printf("Error\nCouldn't allocate backdrop img ptr\n");
+		exit(0);
+	}
+	data->mlx.img_pixels_ptr = (int *) mlx_get_data_addr(data->mlx.img_ptr,
+			&(data->mlx.bpp), &(data->mlx.size_line),
+			&(data->mlx.endian));
+	if (data->mlx.img_pixels_ptr == NULL)
+	{
+		printf("Error\nCouldn't allocate img pxl ptr\n");
+		exit(0);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -66,28 +83,13 @@ int	main(int argc, char **argv)
 			exit_error(WRONG_EXTEN, &data);
 		data.screen_height = SCREEN_HEIGHT;
 		data.screen_width = SCREEN_WIDTH;
-		init_mlx(data.mlx);
-		data.mlx.mlx_ptr = mlx_init();
-		data.mlx.win_ptr = mlx_new_window(data.mlx.mlx_ptr, data.screen_width,
-				data.screen_height, "cub3d");
-		data.mlx.img_ptr = mlx_new_image(data.mlx.mlx_ptr,
-				data.screen_width, data.screen_height);
-		if (data.mlx.img_ptr == NULL)
-			return (printf("Error\nCouldn't allocate backdrop img ptr\n"), 1);
-		data.mlx.img_pixels_ptr = (int *)
-			mlx_get_data_addr(data.mlx.img_ptr,
-				&(data.mlx.bpp), &(data.mlx.size_line),
-				&(data.mlx.endian));
-		if (data.mlx.img_pixels_ptr == NULL)
-			return (printf("Error\nCouldn't allocate img pxl ptr\n"), 1);
+		init_mlx(&data);
 		init_data(&data, argv[1]);
 		init_view(&data);
-		mlx_key_hook(data.mlx.win_ptr, esc_key, &data.mlx); // remember to call ft_dostory!!
-		mlx_hook(data.mlx.win_ptr, 17, 0, ft_destroy, &data);
 		mlx_hook(data.mlx.win_ptr, 2, 1L << 0, key_press, &data);
 		mlx_hook(data.mlx.win_ptr, 3, 1L << 1, key_release, &data);
+		mlx_hook(data.mlx.win_ptr, 17, 0, ft_destroy, &data);
 		mlx_loop_hook(data.mlx.mlx_ptr, ray_cast, &data);
-		// mlx_put_image_to_window(data.mlx.mlx_ptr, data.mlx.win_ptr, data.image.texture[3].img, 0, 0);
 		mlx_loop(data.mlx.mlx_ptr);
 	}
 }

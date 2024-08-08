@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/07 21:15:24 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/08 16:04:41 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,17 @@
 #define SCREEN_HEIGHT 1000
 #define SCREEN_WIDTH 1000
 
-# define MOVE_SPEED 0.05
-# define ROT_SPEED	0.05
+#define SPEED 0.03
 
-//Mac_OS
-# define W_KEY 13
-# define A_KEY 0
-# define S_KEY 1
-# define D_KEY 2
-# define ESC_KEY 53
-# define L_ARROW 123
-# define R_ARROW 124
+#define W_KEY 13
+#define A_KEY 0
+#define S_KEY 1
+#define D_KEY 2
+#define ESC_KEY 53
+#define L_ARROW 123
+#define R_ARROW 124
 
-
-
-typedef struct s_pos // independent coordinates in the map
+typedef struct s_pos
 {
 	int	x;
 	int	y;
@@ -76,9 +72,6 @@ typedef struct s_wall
 	int		tex_x;
 	int		tex_y;
 	double	tex_pos;
-	// t_pos	wall_pos;
-	// void	*win;
-	// void	*ptr;
 }				t_wall;
 
 typedef struct s_image
@@ -98,7 +91,7 @@ typedef struct s_dda
 {
 	t_pix	ray_dir;
 	t_pix	map;
-	double		camera_x;
+	double	camera_x;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
@@ -109,7 +102,7 @@ typedef struct s_dda
 	int		side;
 	int		start;
 	int		end;
-	int	line_height;
+	int		line_height;
 }				t_dda;
 
 typedef struct s_img_mlx {
