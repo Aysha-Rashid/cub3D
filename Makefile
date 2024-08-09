@@ -5,14 +5,14 @@ M_SRC = main.c \
 		parsing.c \
 		utils.c \
 		colors.c \
+		checking.c \
+		dda_utils.c \
 		map_info.c \
 		dfs.c \
 		get_map.c \
 		viewing.c \
-		checking.c \
 		controls.c \
 		moves.c \
-		dda_utils.c \
 		mouse.c \
 
 M_OBJ = $(M_SRC:.c=.o)

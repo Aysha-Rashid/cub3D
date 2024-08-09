@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 18:18:57 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:04:49 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	free_map(char **map)
 
 void	exit_error(char *error, t_data *data)
 {
-	free_map(data->map);
+	if (data->map)
+		free_map(data->map);
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(error, 2);
 	exit(1);
@@ -40,7 +41,6 @@ int	ft_destroy(t_data *data)
 	free_texture(data, data->path_index - 1);
 	free_map(data->map);
 	exit(0);
-	return (0);
 }
 
 void	exit_texture(char *message, t_data *data, char *line)

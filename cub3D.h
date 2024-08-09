@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 19:09:02 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:51:40 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <math.h>
+#include <ctype.h>
 #include "minilibx/mlx.h"
 #define INVALID "Invalid number of arguments"
 #define WRONG_EXTEN "Should be cub extension"

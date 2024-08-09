@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:40:50 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 18:05:13 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:25:44 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	convert_rgb(long long int *rgb, t_data *data, char *str)
 		{
 			printf("r, g, b values outside 0-255 range\n");
 			free(str);
-			free_texture(data, data->path_index);
+			free_texture(data, data->path_index - 1);
 			close(data->file);
 			exit(1);
 		}

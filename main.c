@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 18:18:21 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:04:20 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_data(t_data *data, char *file_name)
 	i = 0;
 	data->file = open(file_name, O_RDONLY);
 	if (data->file == -1)
-		(ft_putendl_fd("Error", 2), ft_putendl_fd(WRONG_FILE, 2), exit(1));
+		(ft_putendl_fd("Error", 2), ft_putendl_fd(WRONG_FILE, 2), exit(0));
 	data->map_width = 0;
 	data->map_height = 0;
 	data->path_index = 0;
@@ -67,6 +67,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	data.map = NULL;
 	if (argc != 2)
 		return (ft_putendl_fd(INVALID, 2), 1);
 	if (argc > 1)

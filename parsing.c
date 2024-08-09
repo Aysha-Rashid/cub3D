@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 18:11:44 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:03:46 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ void	check_for_map_info(char *str, t_data *data, int *count)
 		ceiling_floor(data, &data->image.ceiling, str, count);
 	else if (!ft_strncmp(str, "F ", 2))
 		ceiling_floor(data, &data->image.floor, str, count);
+	else if (str[0] != '\0')
+		(free(str), free_texture(data, data->path_index - 1),
+			exit_error("Invalid map info", data));
 }
 
 void	read_map(int file, t_data *data)
