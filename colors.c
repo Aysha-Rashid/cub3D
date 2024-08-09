@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 22:40:50 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/05 13:21:34 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:05:13 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,24 @@ int	set_color(char *str, t_data *data)
 			i++;
 	}
 	color = convert_rgb(rgb, data, str);
+	return (color);
+}
+
+void	my_pixel_put(t_data *data, int x, int y, int color)
+{
+	int	offset;
+
+	offset = (data->screen_width * y) + x;
+	*(offset + data->mlx.img_pixels_ptr) = color;
+}
+
+int	get_color(t_data *data, int index, int x, int y)
+{
+	int	color;
+	int	offset;
+
+	color = 0;
+	offset = (data->image.texture[index].fixed_width * y) + (x);
+	color = *(data->image.texture[index].img_pixels_ptr + offset);
 	return (color);
 }

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:56:44 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 16:03:46 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/09 19:01:46 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 void	parse_mapline(t_data *data, char **map)
 {
@@ -97,7 +96,6 @@ static void	fill_x_map(char **map, char **buffer, int max_len)
 	}
 }
 
-
 char	**parse_map(t_data *data, char **map)
 {
 	char	**buffer;
@@ -110,30 +108,6 @@ char	**parse_map(t_data *data, char **map)
 	fill_x_map(map, buffer, data->map_width);
 	free_map(map);
 	return (buffer);
-}
-
-void	put_player_dir(t_data *data, int x, int y)
-{
-	if (data->map[y][x] == 'N')
-	{
-		data->view = (t_pix){0, -1};
-		data->camera = (t_pix){0.66, 0};
-	}
-	else if (data->map[y][x] == 'S')
-	{
-		data->view = (t_pix){0, 1};
-		data->camera = (t_pix){-0.66, 0};
-	}
-	else if (data->map[y][x] == 'E')
-	{
-		data->view = (t_pix){1, 0};
-		data->camera = (t_pix){0, 0.66};
-	}
-	else if (data->map[y][x] == 'W')
-	{
-		data->view = (t_pix){-1, 0};
-		data->camera = (t_pix){0, -0.66};
-	}
 }
 
 void	put_player(t_data *data)
@@ -154,11 +128,8 @@ void	put_player(t_data *data)
 				data->player_x = x + 0.5;
 				data->player_y = y + 0.5;
 			}
-			if (data->map[y][x] == 'Y')
-				place_object(&(data->object), y, x);
 			x++;
 		}
 		y++;
 	}
 }
-

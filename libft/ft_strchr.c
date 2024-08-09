@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:09:12 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/07/27 15:01:36 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:12:22 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-if (s == NULL)
+	if (s == NULL)
 		return (NULL);
 	while (*s)
 	{

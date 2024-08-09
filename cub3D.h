@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/08 21:39:58 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/09 19:02:11 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_image
 	t_wall	texture[4];
 }				t_image;
 
-typedef struct s_pix // vector of the map
+typedef struct s_pix
 {
 	double	x;
 	double	y;
@@ -105,30 +105,21 @@ typedef struct s_dda
 	int		line_height;
 }				t_dda;
 
-typedef struct s_img_mlx {
+typedef struct s_img_mlx
+{
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
 	int		*img_pixels_ptr;
 	int		bpp;
-	int		size_line; // line_len
+	int		size_line;
 	int		endian;
 }				t_img_mlx;
-
-// BONUS
-typedef struct s_object {
-    double x;
-    double y;
-    void *texture;
-    int width;
-    int height;
-}				t_object;
-
 
 typedef struct s_data
 {
 	t_image		image;
-	t_img_mlx	mlx; // data
+	t_img_mlx	mlx;
 	int			map_width;
 	int			map_height;
 	int			screen_height;
@@ -145,11 +136,10 @@ typedef struct s_data
 	int			file;
 	double		player_x;
 	double		player_y;
-	double		player_angle; //  movement only
-	t_pix		view; // dir
+	double		player_angle;
+	t_pix		view;
 	t_pix		camera;
-	int			mouse; // BONUS
-	t_object	object;
+	int			mouse;
 }				t_data;
 
 int		esc_key(int key, t_img_mlx *matrix);
@@ -159,7 +149,6 @@ void	exit_texture(char *message, t_data *data, char *line);
 void	read_map(int file, t_data *data);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-void	ft_strcpy(char *dest, char *str);
 //utils
 void	check_texture(t_data *data);
 int		check_for_syntax(char *str);
@@ -169,7 +158,7 @@ char	**parse_map(t_data *data, char **map);
 void	free_texture(t_data *data, int num);
 void	free_map(char **map);
 void	put_player(t_data *data);
-void	print_map(char **map);
+// void	print_map(char **map);
 char	**put_test_map(char **map);
 void	dfs(t_data *data, char **test_map, int x, int y);
 int		search_corners(t_data *data, t_pos pos, t_pos *four_dir);
@@ -180,12 +169,18 @@ int		is_trailing_wspace(char *str, int index);
 int		check_valid_character(t_data *data, char *map);
 int		ft_destroy(t_data *data);
 int		ray_cast(void	*param);
-void	rotate_left(t_data *data);
-void	rotate_right(t_data *data);
+void	calc_start_end(t_dda *dda, t_data *data);
+void	set_wall(t_data	*data, t_dda *dda, t_wall *tex);
+void	drawing_walls(t_data *data, t_dda *dda, t_wall *tex, int slice);
+void	drawing_c_f(t_data *data, t_dda *dda, int slice, int color);
+int		get_color(t_data *data, int index, int x, int y);
+void	my_pixel_put(t_data *data, int x, int y, int color);
+void	flush(t_data *data);
+void	delta_dist(t_dda *dda);
+void	side_dist(t_pix *pos, t_dda *dda);
+void	rotate_left_n_right(t_data *data, int dir, int flag);
 int		key_press(int keycode, t_data *data);
 int		key_release(int keycode, t_data *data);
+void	moving(t_data *data);
+void	put_player_dir(t_data *data, int x, int y);
 int		mouse_move(int x, int y, t_data *data); // BONUS
-
-void load_object_texture(t_data *data, t_object *obj, char *texture_path); // BONUS
-void place_object(t_object *obj, double x, double y); // BONUS
-void render_object(t_data *data, t_object *obj);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 22:20:27 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/08 18:32:56 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:11:44 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	handle_map_content(t_data *data, int fd)
 {
 	char	**test_map;
 
+	data->map = NULL;
 	data->map = get_map(data, fd);
 	data->map = parse_map(data, data->map);
 	close(data->file);

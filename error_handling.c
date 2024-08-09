@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:59:49 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/05 17:19:44 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:18:57 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,9 @@ void	exit_error(char *error, t_data *data)
 	exit(1);
 }
 
-int	esc_key(int key, t_img_mlx *matrix)
-{
-	if (key == 53)
-	{
-		mlx_destroy_window(matrix->mlx_ptr, matrix->win_ptr);
-		exit(EXIT_SUCCESS);
-	}
-	return (0);
-}
-
 int	ft_destroy(t_data *data)
 {
 	mlx_destroy_window(data->mlx.mlx_ptr, data->mlx.win_ptr);
-	// if (data->mlx.img_pixels_ptr)
-	// 	mlx_destroy_image(data->mlx.ptr, data->mlx.img_pixels_ptr);
 	free_texture(data, data->path_index - 1);
 	free_map(data->map);
 	exit(0);
@@ -60,4 +48,10 @@ void	exit_texture(char *message, t_data *data, char *line)
 	(free(line), close(data->file),
 		free_texture(data, data->path_index - 1),
 		exit_error(message, data));
+}
+
+void	free_texture(t_data *data, int num)
+{
+	while (num >= 0)
+		free(data->paths[num--]);
 }

@@ -6,30 +6,11 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:45:32 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/03 19:15:33 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 18:07:53 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-void	print_map(char **map) // just for testing, will remove it later
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			printf("%c", map[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
 
 char	**put_test_map(char **map)
 {

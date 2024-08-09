@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:12:16 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/09 16:12:11 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/09 19:01:51 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
 
 void	rotate_angle(t_data *data, t_pix *vec, int flag)
 {
@@ -28,85 +27,17 @@ void	rotate_angle(t_data *data, t_pix *vec, int flag)
 	data->player_angle += angle / 2;
 }
 
-void	rotate_left(t_data *data)
+void	rotate_left_n_right(t_data *data, int dir, int flag)
 {
-	if (data->rot_left == 0)
+	if (dir == 0)
 		return ;
-	rotate_angle(data, &(data->view), 1);
-	rotate_angle(data, &(data->camera), 1);
+	rotate_angle(data, &(data->view), flag);
+	rotate_angle(data, &(data->camera), flag);
 	if (data->player_angle >= 6.28319)
 		data->player_angle -= 6.28319;
 	else if (data->player_angle < 0)
 		data->player_angle += 6.28319;
 }
-
-void	rotate_right(t_data *data)
-{
-	if (data->rot_right == 0)
-		return ;
-	rotate_angle(data, &(data->view), 0);
-	rotate_angle(data, &(data->camera), 0);
-	if (data->player_angle >= 6.28319)
-		data->player_angle -= 6.28319;
-	else if (data->player_angle < 0)
-		data->player_angle += 6.28319;
-}
-
-// BONUS
-int	mouse_move(int x, int y, t_data *data)
-{
-	int	prev_x;
-
-	prev_x = data->mouse;
-	if (x < 0 || x > data->screen_width - 1
-		|| y < 0 || y > data->screen_height - 1)
-		return (1);
-	if (x == prev_x)
-		return (1);
-	if (x < prev_x)
-	{
-		data->rot_left = 1;
-		rotate_left(data);
-		data->rot_left = 0;
-	}
-	else
-	{
-		data->rot_right = 1;
-		rotate_right(data);
-		data->rot_right = 0;
-	}
-	data->mouse = x;
-	return (0);
-}
-
-void load_object_texture(t_data *data, t_object *obj, char *texture_path)
-{
-	// (void)texture_path;
-	// int x = 50;
-	// printf("&obj->width : %i\n, &obj->height : %i \n\n", obj->width, obj->height);
-    obj->texture = mlx_xpm_file_to_image(data->mlx.mlx_ptr, texture_path, &obj->width, &obj->height);
-	// printf("&obj->width : %i\n, &obj->height : %i \n\n", obj->width, obj->height);
-    if (!obj->texture)
-        exit_error("Failed to load object texture", data);
-}
-
-void place_object(t_object *obj, double x, double y)
-{
-    obj->x = x;
-    obj->y = y;
-	printf("y = %f\nx = %f\n\n", y, x);
-}
-
-void render_object(t_data *data, t_object *obj)
-{
-    int screen_x = (int)(obj->x * data->screen_width);
-    int screen_y = (int)(obj->y * data->screen_height);
-
-    mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, obj->texture, screen_x, screen_y);
-}
-
-
-//
 
 int	key_press(int keycode, t_data *data)
 {
@@ -142,4 +73,28 @@ int	key_release(int keycode, t_data *data)
 	else if (keycode == R_ARROW)
 		data->rot_right = 0;
 	return (0);
+}
+
+void	put_player_dir(t_data *data, int x, int y)
+{
+	if (data->map[y][x] == 'N')
+	{
+		data->view = (t_pix){0, -1};
+		data->camera = (t_pix){0.66, 0};
+	}
+	else if (data->map[y][x] == 'S')
+	{
+		data->view = (t_pix){0, 1};
+		data->camera = (t_pix){-0.66, 0};
+	}
+	else if (data->map[y][x] == 'E')
+	{
+		data->view = (t_pix){1, 0};
+		data->camera = (t_pix){0, 0.66};
+	}
+	else if (data->map[y][x] == 'W')
+	{
+		data->view = (t_pix){-1, 0};
+		data->camera = (t_pix){0, -0.66};
+	}
 }

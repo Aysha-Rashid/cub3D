@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:33:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 16:01:39 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:28:28 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_valid_character(t_data *data, char *map)
 	char	*set;
 
 	count = 0;
-	set = "NSWE10Y "; // BONUS
+	set = "NSWE10 ";
 	i = 0;
 	while (map[i])
 	{

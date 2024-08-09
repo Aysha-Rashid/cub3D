@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 15:43:08 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/09 18:18:21 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,10 @@ void	init_data(t_data *data, char *file_name)
 	data->rot_right = 0;
 	data->image.ceiling = -1;
 	data->image.floor = -1;
-	data->map = NULL;
 	data->player_angle = 0;
 	while (i < 4)
 		data->paths[i++] = NULL;
 	read_map(data->file, data);
-}
-
-
-void	free_texture(t_data *data, int num)
-{
-	while (num >= 0)
-		free(data->paths[num--]);
 }
 
 void	init_mlx(t_data *data)
@@ -88,7 +80,7 @@ int	main(int argc, char **argv)
 		init_view(&data);
 		mlx_hook(data.mlx.win_ptr, 2, 1L << 0, key_press, &data);
 		mlx_hook(data.mlx.win_ptr, 3, 1L << 1, key_release, &data);
-		mlx_hook(data.mlx.win_ptr, 6, 1L << 6, mouse_move, &data); // BONUS
+		mlx_hook(data.mlx.win_ptr, 6, 1L << 6, mouse_move, &data);
 		mlx_hook(data.mlx.win_ptr, 17, 0, ft_destroy, &data);
 		mlx_loop_hook(data.mlx.mlx_ptr, ray_cast, &data);
 		mlx_loop(data.mlx.mlx_ptr);
