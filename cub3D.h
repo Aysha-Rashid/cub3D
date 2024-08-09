@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/08 16:04:41 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:39:58 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,16 @@ typedef struct s_img_mlx {
 	int		endian;
 }				t_img_mlx;
 
+// BONUS
+typedef struct s_object {
+    double x;
+    double y;
+    void *texture;
+    int width;
+    int height;
+}				t_object;
+
+
 typedef struct s_data
 {
 	t_image		image;
@@ -138,6 +148,8 @@ typedef struct s_data
 	double		player_angle; //  movement only
 	t_pix		view; // dir
 	t_pix		camera;
+	int			mouse; // BONUS
+	t_object	object;
 }				t_data;
 
 int		esc_key(int key, t_img_mlx *matrix);
@@ -172,3 +184,8 @@ void	rotate_left(t_data *data);
 void	rotate_right(t_data *data);
 int		key_press(int keycode, t_data *data);
 int		key_release(int keycode, t_data *data);
+int		mouse_move(int x, int y, t_data *data); // BONUS
+
+void load_object_texture(t_data *data, t_object *obj, char *texture_path); // BONUS
+void place_object(t_object *obj, double x, double y); // BONUS
+void render_object(t_data *data, t_object *obj);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checking.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 13:33:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/08 17:27:05 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:01:39 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_valid_character(t_data *data, char *map)
 	char	*set;
 
 	count = 0;
-	set = "NSWE10 ";
+	set = "NSWE10Y "; // BONUS
 	i = 0;
 	while (map[i])
 	{
@@ -81,8 +81,6 @@ void	checking_after_dfs(t_data *data, char **test_map)
 			else if (test_map[i][j] == 'A'
 				&& !(data->map[i][j] == '1' || data->map[i][j] == 'X'))
 			{
-				print_map(test_map);
-				printf("x: %d\n y: %d\n", i, j);
 				free_map(test_map);
 				exit_error("Only spaces beyond map walls and "
 					"no spaces/zeroes allowed within perimeter wall", data);

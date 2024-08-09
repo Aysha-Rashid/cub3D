@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:26:01 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/08 15:47:06 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:31:37 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,10 +217,8 @@ void	drawing_walls(t_data *data, t_dda *dda, t_wall *tex, int slice)
 		tex->tex_y = (int) tex->tex_pos & (data->image.texture[index].fixed_height - 1);
 		tex->tex_pos += tex->step;
 		color = get_color(data, index, tex->tex_x, tex->tex_y);
-		// printf("color : %d\n", color);
-		// exit(0);
-		// if (dda->side == 1)
-		// 	color = (color >> 1) & 8355711;
+		if (dda->side == 1)
+			color = (color >> 1) & 8355711;
 		offset = (data->screen_width * dda->start) + slice;
 		*(data->mlx.img_pixels_ptr + offset) = color;
 		dda->start++;
@@ -363,6 +361,8 @@ int	ray_cast(void	*param)
 		set_wall(data, &dda, &wall);
 		drawing_c_f(data, &dda, slice, data->image.ceiling);
 		drawing_c_f(data, &dda, slice, data->image.floor);
+		// load_object_texture(data, &data->object, "textures/camel.xpm"); //BONUS
+		// render_object(data, &data->object); // BONUS
 		drawing_walls(data, &dda, &wall, slice);
 	}
 	return (mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr,

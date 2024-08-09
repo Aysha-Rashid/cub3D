@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:56:44 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/03 20:05:15 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 16:03:46 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ void	put_player(t_data *data)
 				data->player_x = x + 0.5;
 				data->player_y = y + 0.5;
 			}
+			if (data->map[y][x] == 'Y')
+				place_object(&(data->object), y, x);
 			x++;
 		}
 		y++;
