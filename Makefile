@@ -18,7 +18,7 @@ M_SRC = main.c \
 M_OBJ = $(M_SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #remove the sanitize flag
+CFLAGS = -Wall -Wextra -Werror
 
 LIBFTPATH = libft
 LIBFT = -L${LIBFTPATH} -lft
@@ -27,10 +27,8 @@ MINILIBX_LIB = -Lminilibx -lmlx -framework OpenGL -framework AppKit
 
 $(NAME): $(M_OBJ)
 	@ cd $(LIBFTPATH) && make
-	@cd $(MINILIBX_PATH) && make
-# silent mlx and flags
+	@ cd $(MINILIBX_PATH) && make
 	@ $(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) $(MINILIBX_LIB) -o $(NAME)
-#@$(CC) $(M_OBJ) $(CFLAGS) $(LIBFT) -o $(NAME)
 	@ echo "$(COLOUR_GREEN)compiled $(words $(M_OBJ)) files $(COLOUR_END)"
 
 all: $(NAME)
@@ -39,7 +37,6 @@ clean:
 	@ cd libft && make clean
 	@ cd $(MINILIBX_PATH) && make clean
 	@ rm -f $(M_OBJ)
-# @ rm -f $(M_OBJ)
 
 fclean: clean
 	@ cd libft && make fclean

@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 19:02:11 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/09 19:09:02 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,12 @@ typedef struct s_data
 	int			mouse;
 }				t_data;
 
-int		esc_key(int key, t_img_mlx *matrix);
 int		check_name(char *argv);
 void	exit_error(char *error, t_data *data);
 void	exit_texture(char *message, t_data *data, char *line);
 void	read_map(int file, t_data *data);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-//utils
 void	check_texture(t_data *data);
 int		check_for_syntax(char *str);
 int		set_color(char *str, t_data *data);
@@ -158,7 +156,6 @@ char	**parse_map(t_data *data, char **map);
 void	free_texture(t_data *data, int num);
 void	free_map(char **map);
 void	put_player(t_data *data);
-// void	print_map(char **map);
 char	**put_test_map(char **map);
 void	dfs(t_data *data, char **test_map, int x, int y);
 int		search_corners(t_data *data, t_pos pos, t_pos *four_dir);
@@ -183,4 +180,4 @@ int		key_press(int keycode, t_data *data);
 int		key_release(int keycode, t_data *data);
 void	moving(t_data *data);
 void	put_player_dir(t_data *data, int x, int y);
-int		mouse_move(int x, int y, t_data *data); // BONUS
+int		mouse_move(int x, int y, t_data *data);
