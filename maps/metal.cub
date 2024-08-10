@@ -2,15 +2,15 @@
             
             
             
-            NO              textures/african/ladys.xpm
+            NO              textures/metal/ea.xpm
 
 
 
-SO              textures/african/african_lady_shisha.xpm
-WE textures/african/tree.xpm
-EA textures/african/s.xpm
-F 124, 73, 0 
-C 218, 202, 180 
+SO              textures/metal/no.xpm
+WE textures/metal/so.xpm
+EA textures/metal/we.xpm
+F 60, 0, 0 
+C 189, 238, 255 
 
 
         1111111111111111111111111
