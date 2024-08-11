@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:29:25 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 22:04:20 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:06:12 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_data(t_data *data, char *file_name)
 	i = 0;
 	data->file = open(file_name, O_RDONLY);
 	if (data->file == -1)
-		(ft_putendl_fd("Error", 2), ft_putendl_fd(WRONG_FILE, 2), exit(0));
+		(ft_putendl_fd("Error", 2), ft_putendl_fd(WRONG_FILE, 2), exit(1));
 	data->map_width = 0;
 	data->map_height = 0;
 	data->path_index = 0;
@@ -79,11 +79,11 @@ int	main(int argc, char **argv)
 		init_mlx(&data);
 		init_data(&data, argv[1]);
 		init_view(&data);
+		mlx_loop_hook(data.mlx.mlx_ptr, ray_cast, &data);
 		mlx_hook(data.mlx.win_ptr, 2, 1L << 0, key_press, &data);
 		mlx_hook(data.mlx.win_ptr, 3, 1L << 1, key_release, &data);
 		mlx_hook(data.mlx.win_ptr, 6, 1L << 6, mouse_move, &data);
 		mlx_hook(data.mlx.win_ptr, 17, 0, ft_destroy, &data);
-		mlx_loop_hook(data.mlx.mlx_ptr, ray_cast, &data);
 		mlx_loop(data.mlx.mlx_ptr);
 	}
 }

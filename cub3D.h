@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 21:51:40 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/10 21:35:20 by rosman           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@
 #define MEMORY_ISSUE "allocation failed"
 #define COLOR_ISSUE "Same color for Ceiling and Floor"
 
-#define SO 1
-#define WE 3
-#define EA 2
 #define NO 0
+#define SO 1
+#define EA 2
+#define WE 3
 #define C 4
 #define F 5
 #define N_D0 0
@@ -49,9 +49,9 @@
 #define A_KEY 0
 #define S_KEY 1
 #define D_KEY 2
-#define ESC_KEY 53
 #define L_ARROW 123
 #define R_ARROW 124
+#define ESC_KEY 53
 
 typedef struct s_pos
 {
@@ -119,8 +119,6 @@ typedef struct s_img_mlx
 
 typedef struct s_data
 {
-	t_image		image;
-	t_img_mlx	mlx;
 	int			map_width;
 	int			map_height;
 	int			screen_height;
@@ -138,6 +136,8 @@ typedef struct s_data
 	double		player_x;
 	double		player_y;
 	double		player_angle;
+	t_image		image;
+	t_img_mlx	mlx;
 	t_pix		view;
 	t_pix		camera;
 	int			mouse;
