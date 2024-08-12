@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rosman <rosman@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 16:17:47 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/10 21:35:20 by rosman           ###   ########.fr       */
+/*   Updated: 2024/08/11 19:42:07 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <math.h>
 #include <ctype.h>
-#include "minilibx/mlx.h"
+#include "../minilibx/mlx.h"
 #define INVALID "Invalid number of arguments"
 #define WRONG_EXTEN "Should be cub extension"
 #define WRONG_TEX_EXTEN "Should be xpm extension"
@@ -34,8 +34,6 @@
 #define SO 1
 #define EA 2
 #define WE 3
-#define C 4
-#define F 5
 #define N_D0 0
 #define E_D90 1.5709
 #define S_D180 3.14159
@@ -43,7 +41,7 @@
 #define SCREEN_HEIGHT 1000
 #define SCREEN_WIDTH 1000
 
-#define SPEED 0.03
+#define SPEED 0.05
 
 #define W_KEY 13
 #define A_KEY 0

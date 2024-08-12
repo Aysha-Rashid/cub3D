@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:34:22 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 18:29:16 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/11 16:56:36 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,26 @@ int	check_valid_move(t_data *data, int flag)
 	return (1);
 }
 
-void	move_up_n_down(t_data *data, int moves, int key)
+void	move_to(t_data *data, int moves, int key)
 {
 	if (moves == 0)
 		return ;
-	if (check_valid_move(data, S_KEY) == 1 && key != 13)
+	if (check_valid_move(data, key) == 1 && key == S_KEY)
 	{
 		data->player_x -= (data->view.x * SPEED);
 		data->player_y -= (data->view.y * SPEED);
 	}
-	if (check_valid_move(data, key) == 1 && key != 1)
+	if (check_valid_move(data, key) == 1 && key == W_KEY)
 	{
 		data->player_x += (data->view.x * SPEED);
 		data->player_y += (data->view.y * SPEED);
 	}
-	if (check_valid_move(data, key) == 1 && key != D_KEY)
+	if (check_valid_move(data, key) == 1 && key == A_KEY)
 	{
 		data->player_x -= (-data->view.y * SPEED);
 		data->player_y -= (data->view.x * SPEED);
 	}
-	if (check_valid_move(data, key) == 1 && key != A_KEY)
+	if (check_valid_move(data, key) == 1 && key == D_KEY)
 	{
 		data->player_x += (-data->view.y * SPEED);
 		data->player_y += (data->view.x * SPEED);
@@ -76,10 +76,10 @@ void	move_up_n_down(t_data *data, int moves, int key)
 
 void	moving(t_data *data)
 {
-	move_up_n_down(data, data->move_down, S_KEY);
-	move_up_n_down(data, data->move_up, W_KEY);
-	move_up_n_down(data, data->move_right, D_KEY);
-	move_up_n_down(data, data->move_left, A_KEY);
+	move_to(data, data->move_down, S_KEY);
+	move_to(data, data->move_up, W_KEY);
+	move_to(data, data->move_right, D_KEY);
+	move_to(data, data->move_left, A_KEY);
 	rotate_left_n_right(data, data->rot_left, 1);
 	rotate_left_n_right(data, data->rot_right, 0);
 }

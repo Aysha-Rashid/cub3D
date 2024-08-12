@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 17:34:12 by ayal-ras          #+#    #+#             */
-/*   Updated: 2024/08/09 17:42:49 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:28:04 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ void	set_wall(t_data	*data, t_dda *dda, t_wall *tex)
 		tex->wall_x = data->player_x + dda->side_dist_y * dda->ray_dir.x;
 		tex->wall_x -= floor(tex->wall_x);
 	}
-	tex->tex_x = (int)(tex->wall_x * data->image.texture[3].fixed_width);
+	tex->tex_x = (int)(tex->wall_x * data->image.texture[0].fixed_width);
 	if (dda->side == 0 && dda->ray_dir.x < 0)
-		tex->tex_x = data->image.texture[3].fixed_width - (tex->tex_x + 1);
+		tex->tex_x = data->image.texture[0].fixed_width - (tex->tex_x + 1);
 	if (dda->side == 1 && dda->ray_dir.y > 0)
-		tex->tex_x = data->image.texture[3].fixed_width - (tex->tex_x + 1);
+		tex->tex_x = data->image.texture[0].fixed_width - (tex->tex_x + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: ayal-ras <ayal-ras@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:26:01 by rosman            #+#    #+#             */
-/*   Updated: 2024/08/09 21:51:58 by ayal-ras         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:52:05 by ayal-ras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_view(t_data *data)
 		data->player_angle = W_D270;
 }
 
-void	init_dda_delta_side(t_data *data, t_dda *dda, double x, t_pix *ray_dir)
+void	init_dda_delta(t_data *data, t_dda *dda, double x, t_pix *ray_dir)
 {
 	dda->camera_x = (2 * x / data->screen_width) - 1;
 	dda->side = 0;
@@ -71,13 +71,12 @@ int	ray_cast(void	*param)
 	double	slice;
 
 	data = (t_data *) param;
-	moving(data);
 	flush(data);
 	slice = -1;
 	pos = (t_pix){data->player_x, data->player_y};
 	while (++slice < data->screen_width)
 	{
-		init_dda_delta_side(data, &dda, slice, &(dda.ray_dir));
+		init_dda_delta(data, &dda, slice, &(dda.ray_dir));
 		side_dist(&pos, &dda);
 		dda_algor(data, &dda);
 		calc_start_end(&dda, data);
@@ -86,6 +85,7 @@ int	ray_cast(void	*param)
 		drawing_c_f(data, &dda, slice, data->image.floor);
 		drawing_walls(data, &dda, &wall, slice);
 	}
+	moving(data);
 	return (mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr,
 			data->mlx.img_ptr, 0, 0), 0);
 }
